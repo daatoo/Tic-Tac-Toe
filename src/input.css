@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+
+    .button-1 {
+        /* Light Yellow */
+
+        background: #F2B137;
+        box-shadow: inset 0px -8px 0px #CC8B13;
+        border-radius: 15px;
+        width: 410px;
+        height: 67px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .button-1:hover {
+        background: #FFC860;
+
+    }
+
+    .button-2 {
+        /* Light Blue */
+
+        background: #31C3BD;
+        box-shadow: inset 0px -8px 0px #118C87;
+        border-radius: 15px;
+        width: 410px;
+        height: 67px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .button-2:hover {
+        background: #65E9E4;
+    }
+}
