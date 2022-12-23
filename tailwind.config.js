@@ -12,7 +12,13 @@ theme: {
         'SemiDarkNavy': '#1F3641',
         'Silver': '#A8BFC9',
         'SilverHover': '#DBE8ED',
-      }
+      },
+      fontFamily: {
+        'Outfit': ['Outfit'],
+      },
+      screens: {
+        'des': '1440px',
+      },
     },
   },
   plugins: [],

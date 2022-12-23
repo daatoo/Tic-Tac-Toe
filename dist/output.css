@@ -512,13 +512,3 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.bg-Silver {
-  --tw-bg-opacity: 1;
-  background-color: rgb(168 191 201 / var(--tw-bg-opacity));
-}
