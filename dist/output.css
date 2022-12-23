@@ -513,7 +513,7 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.button-1 {
+.Btn-1 {
   /* Light Yellow */
   background: #F2B137;
   box-shadow: inset 0px -8px 0px #CC8B13;
@@ -524,13 +524,20 @@ video {
   align-items: center;
   border-radius: 15px;
   cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 1.25px;
 }
 
-.button-1:hover {
+.Btn-1:hover {
   background: #FFC860;
 }
 
-.button-2 {
+.Btn-2 {
   /* Light Blue */
   background: #31C3BD;
   box-shadow: inset 0px -8px 0px #118C87;
@@ -541,8 +548,78 @@ video {
   align-items: center;
   border-radius: 15px;
   cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 1.25px;
 }
 
-.button-2:hover {
+.Btn-2:hover {
   background: #65E9E4;
+}
+
+.SecBtn-1 {
+  /* Light Yellow */
+  background: #F2B137;
+  box-shadow: inset 0px -4px 0px #CC8B13;
+  width: 226px;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.SecBtn-1:hover {
+  background: #FFC860;
+}
+
+.SecBtn-2 {
+  /* Light Yellow */
+  background: #A8BFC9;
+  box-shadow: inset 0px -4px 0px #6B8997;
+  width: 226px;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.SecBtn-2:hover {
+  background: #DBE8ED;
+}
+
+.RefreshBtn {
+  /* Silver */
+  background: #A8BFC9;
+  box-shadow: inset 0px -4px 0px #6B8997;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.RefreshBtn:hover{
+  background: #DBE8ED;
 }
