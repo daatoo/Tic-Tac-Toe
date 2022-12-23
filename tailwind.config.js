@@ -19,6 +19,9 @@ theme: {
       screens: {
         'des': '1440px',
       },
+      boxShadow: {
+        'dfd': ' 0px 8px 0px  #10212A',
+      },
     },
   },
   plugins: [],
