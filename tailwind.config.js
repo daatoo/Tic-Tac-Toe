@@ -20,7 +20,8 @@ theme: {
         'des': '1440px',
       },
       boxShadow: {
-        'dfd': ' 0px 8px 0px  #10212A',
+        'main': ' 0px 8px 0px  #10212A',
+        'secondary': ' 0px 4px 0px #10212A',
       },
     },
   },
