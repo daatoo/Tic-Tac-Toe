@@ -64,44 +64,26 @@ let board = [
   [0, 0, 0]
 ];
 
-// if(document.getElementById(0)==clicked){
-//   console.log("hello")
-// }
 // Check which was clicked
 let Allsquare = document.getElementById("Allsquare")
-// Allsquare.addEventListener('click', function(){
-//   let k = 0
-//   for (i = 0; i < 3; ++i) {
-//     boardWithDivs[i] = a = [];
-//       for (j = 0; j < 3; ++j) {
-//         if(document.getElementById(k)==clicked){
-//           console.log("hello")
-//         }
-//       }
-//   }
-// })
 Allsquare.addEventListener('click', function (event) {
 
   const clickedElement = event.target;
 
   if (clickedElement.matches(".square")) {
     // Get the row and column of the clicked square
-    // console.log(clickedElement.id)
     let k = 0
     for (ii = 0; ii < 3; ++ii) {
       boardWithDivs[i] = a = [];
       for (jj = 0; jj < 3; ++jj) {
-        // console.log(boardWithDivs[ii][jj])
-        if (boardWithDivs[ii][jj].id === clickedElement.id) {
+        if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
           boardWithDivs[ii][jj].children[0].className = "flex"
           board[ii][jj] = 1
           console.log( boardWithDivs[ii][jj].children[0])
-          // console.log(boardWithDivs[1][1].id)
         }
       }
     }
-
-    // Check rows
+        // Check rows
     for (let i = 0; i < 3; i++) {
       if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) {
         console.log("win")
@@ -126,6 +108,26 @@ Allsquare.addEventListener('click', function (event) {
       alert("you win")
       return board[2][0];
     }
+    freeDivs = []
+    for(i = 0; i < 3; i++){
+      for(a = 0; a < 3; a++){
+        if(board[i][a] == 0){
+          freeDivs.push(boardWithDivs[i][a])
+        }
+      }
+    }
+    const random = Math.floor(Math.random() * freeDivs.length);
+    freeDivs[random].children[1].className = "flex"
+    for(i = 0; i<3; i++){
+      for(a = 0; a<3; a++){
+        if(boardWithDivs[i][a].id == freeDivs[random].id){
+          board[i][a] = 2
+        }
+      }
+    }
+    console.log(freeDivs, freeDivs[random])
+
+
   }
 })
 console.log(boardWithDivs[1][2])

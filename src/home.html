@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,13 +19,17 @@
             <h3 class="font-bold text-base leading-5 font-Outfit tracking-[1px] uppercase text-Silver ">PICK PLAYER 1’S
                 MARK</h3>
             <div class="bg-DarkNavy rounded-[10px] w-[412px] h-[72px] flex p-[9px]">
-                <button  type="button" class="w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy" id="xicon" >
+                <button type="button"
+                    class="w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy"
+                    id="xicon">
                     <div class="flex justify-center items-center w-8 h-8">
                         <div class="w-2.5 h-[42px] bg-Silver -rotate-45 absolute rounded-[5px]" id="partX1"></div>
-                        <div class="w-2.5 h-[42px] bg-Silver rotate-45 absolute rounded-[5px]"  id="partX2"></div>
+                        <div class="w-2.5 h-[42px] bg-Silver rotate-45 absolute rounded-[5px]" id="partX2"></div>
                     </div>
                 </button>
-                <button class="w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy" id="oicon" >
+                <button
+                    class="w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy"
+                    id="oicon">
                     <div class="w-8 h-8 rounded-[50%] flex justify-center items-center bg-Silver">
                         <div class="w-3 h-3 rounded-[50%] bg-DarkNavy"></div>
                     </div>
@@ -35,48 +40,78 @@
                 REMEMBER : X GOES FIRST</p>
         </div>
         <div class="flex flex-col gap-5">
-            <div class="Btn-1" id="Btn1"><p class="mb-[5px]">NEW GAME (VS CPU)</p></div>
-            <div class="Btn-2" id="Btn2"><p class="mb-[5px]">NEW GAME  (VS PLAYER)</p></div>
+            <div class="Btn-1" id="Btn1">
+                <p class="mb-[5px]">NEW GAME (VS CPU)</p>
+            </div>
+            <div class="Btn-2" id="Btn2">
+                <p class="mb-[5px]">NEW GAME (VS PLAYER)</p>
+            </div>
         </div>
 
     </div>
     <div id="gamediv"
-     class="hidden flex-col gap-10 justify-center items-center w-[460px] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
+        class="hidden flex-col gap-10 justify-center items-center w-[460px] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
         <div class="flex justify-between items-center w-full">
             <img src="../src/assets/logo.svg" class="h-[36.6px]" alt="">
-            <div class="flex justify-center items-center w-[140px] h-[52px] gap-[13px] bg-SemiDarkNavy rounded-[10px] shadow-secondary">
+            <div
+                class="flex justify-center items-center w-[140px] h-[52px] gap-[13px] bg-SemiDarkNavy rounded-[10px] shadow-secondary">
                 <div class="flex justify-center items-center w-5 h-5">
                     <div class="w-1.5 h-7 bg-Silver -rotate-45 absolute rounded-[3px]" id="partX1"></div>
-                    <div class="w-1.5 h-7 bg-Silver rotate-45 absolute rounded-[3px]"  id="partX2"></div>
+                    <div class="w-1.5 h-7 bg-Silver rotate-45 absolute rounded-[3px]" id="partX2"></div>
                 </div>
-                <p class="text-Silver font-Outfit font-bold leading-5 text-base text-center tracking-[1px] uppercase">TURN</p>
+                <p class="text-Silver font-Outfit font-bold leading-5 text-base text-center tracking-[1px] uppercase">
+                    TURN</p>
             </div>
             <div class="RefreshBtn"><img src="../src/assets/icon-restart.svg" alt=""></div>
         </div>
         <div id="Allsquare" class="w-full grid grid-cols-3 gap-5">
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="0"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="1"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="2"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="3"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="4"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="5"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="6"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="7"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
-            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square" id="8"><img src="../src/assets/icon-x.svg" class="hidden" alt=""></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="0"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="1"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="2"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="3"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="4"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="5"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="6"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="7"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
+            <div class="w-[140px] h-[140px] bg-SemiDarkNavy rounded-[15px] shadow-main cursor-pointer flex justify-center items-center square"
+                id="8"><img src="../src/assets/icon-x.svg" class="hidden" alt=""><img src="../src/assets/icon-o.svg"
+                    class="hidden"></div>
 
         </div>
         <div class="w-full flex gap-5">
             <div class="w-[140px] h-[72px] bg-LightBlue rounded-[15px] justify-center items-center">
-                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy " id="WhichAreYou">X (YOU)</p>
-                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy " id="Xscore">0</p>
+                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy "
+                    id="WhichAreYou">X (YOU)</p>
+                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy "
+                    id="Xscore">0</p>
             </div>
             <div class="w-[140px] h-[72px] bg-Silver rounded-[15px] ">
-                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy ">TIES</p>
-                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy " id="TieScore">0</p>
+                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy ">
+                    TIES</p>
+                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy "
+                    id="TieScore">0</p>
             </div>
             <div class="w-[140px] h-[72px] bg-LightYellow rounded-[15px] ">
-                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy " id="WhichIsPc">O (CPU)</p>
-                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy " id="Oscore">0</p>
+                <p class="font-Outfit font-medium text-sm leading-[18px] text-center tracking-[0.875px] text-DarkNavy "
+                    id="WhichIsPc">O (CPU)</p>
+                <p class="font-Outfit font-bold text-2xl leading-[30px] text-center tracking-[1.5px] uppercase text-DarkNavy "
+                    id="Oscore">0</p>
             </div>
         </div>
     </div>
