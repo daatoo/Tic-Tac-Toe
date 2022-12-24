@@ -24,4 +24,25 @@ document.querySelectorAll('button').forEach(occurence => {
         currentchoice = "oicon"
       }
     } );
-  });
+});
+
+let Btn1 = document.getElementById("Btn1")
+let Btn2 = document.getElementById("Btn2")
+let startmenu = document.getElementById("startmenu")
+let gamediv = document.getElementById("gamediv")
+let WhoAreYou = document.getElementById("WhichAreYou")
+let WhichIsPc = document.getElementById("WhichIsPc")
+
+Btn1.addEventListener("click", function(){
+  startmenu.classList.add("hidden")
+  startmenu.classList.remove("flex")
+  gamediv.classList.remove("hidden")
+  gamediv.classList.add("flex")
+  if(currentchoice == "xicon"){
+    WhoAreYou.innerText = "X (YOU)"
+    WhichIsPc.innerText = "O (CPU)"
+  }else if(currentchoice == "oicon"){
+    WhichIsPc.innerHTML = "X (CPU)"
+    WhoAreYou.innerHTML = "O (YOU)"
+  }
+})
