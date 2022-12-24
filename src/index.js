@@ -46,3 +46,23 @@ Btn1.addEventListener("click", function(){
     WhoAreYou.innerHTML = "O (YOU)"
   }
 })
+
+// Create Board With 2D Array and Add Html Divs
+boardWithDivs = [];
+let b = 0
+for (i = 0; i < 3; ++i) {
+  boardWithDivs[i] = a = [];
+    for (j = 0; j < 3; ++j) {
+      boardWithDivs[i][j] = document.getElementById(b)
+        b = b + 1
+    }
+}
+
+let board = [
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0]
+];
+console.log(boardWithDivs)
+console.log(board)
+
