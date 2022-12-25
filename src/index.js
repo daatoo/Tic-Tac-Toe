@@ -91,9 +91,12 @@ Allsquare.addEventListener('click', function (event) {
         // Check rows
     for (let i = 0; i < 3; i++) {
       if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) {
-        Xwins.classList.remove("hidden")
-        Xwins.classList.add("flex")  
-        Xscore.innerText++
+
+        setTimeout(() => {
+          Xwins.classList.remove("hidden")
+          Xwins.classList.add("flex")  
+          Xscore.innerText++
+        }, 300);
         return board[i][0];
       }
     }
@@ -101,24 +104,30 @@ Allsquare.addEventListener('click', function (event) {
     // Check columns
     for (let i = 0; i < 3; i++) {
       if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 1) {
-        Xwins.classList.remove("hidden")
-        Xwins.classList.add("flex")  
-        Xscore.innerText++
+        setTimeout(() => {
+          Xwins.classList.remove("hidden")
+          Xwins.classList.add("flex")  
+          Xscore.innerText++
+        }, 300);
         return board[0][i];
       }
     }
 
     // Check diagonals
     if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 1) {
-      Xwins.classList.remove("hidden")
-      Xwins.classList.add("flex")  
-      Xscore.innerText++
+      setTimeout(() => {
+        Xwins.classList.remove("hidden")
+        Xwins.classList.add("flex")  
+        Xscore.innerText++
+      }, 300);
       return board[0][0];
     }
     if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 1) {
-      Xwins.classList.remove("hidden")
-      Xwins.classList.add("flex") 
-      Xscore.innerText++ 
+      setTimeout(() => {
+        Xwins.classList.remove("hidden")
+        Xwins.classList.add("flex")  
+        Xscore.innerText++
+      }, 300);
       return board[2][0];
     }
 
@@ -134,21 +143,23 @@ Allsquare.addEventListener('click', function (event) {
       }
     }
     const random = Math.floor(Math.random() * freeDivs.length);
-    freeDivs[random].children[1].className = "flex"
-    for(i = 0; i<3; i++){
-      for(a = 0; a<3; a++){
-        if(boardWithDivs[i][a].id == freeDivs[random].id){
-          board[i][a] = 2
+
+    setTimeout(() => {
+      freeDivs[random].children[1].className = "flex"
+      for(i = 0; i<3; i++){
+        for(a = 0; a<3; a++){
+          if(boardWithDivs[i][a].id == freeDivs[random].id){
+            board[i][a] = 2
+          }
         }
       }
-    }
-
-        // check if o wins
+              // check if o wins
     // Check rows
     for (let i = 0; i < 3; i++) {
       if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 2) {
         Owins.classList.remove("hidden")
         Owins.classList.add("flex")
+        Oscore.innerText++
         return board[i][0];
       }
     }
@@ -158,6 +169,7 @@ Allsquare.addEventListener('click', function (event) {
       if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 2) {
         Owins.classList.remove("hidden")
         Owins.classList.add("flex")
+        Oscore.innerText++
         return board[0][i];
       }
     }
@@ -165,14 +177,18 @@ Allsquare.addEventListener('click', function (event) {
     // Check diagonals
     if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 2) {
       Owins.classList.remove("hidden")
-      Owins.classList.add("flex")      
+      Owins.classList.add("flex")            
+      Oscore.innerText++
       return board[0][0];
     }
     if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 2) {
       Owins.classList.remove("hidden")
-      Owins.classList.add("flex")      
+      Owins.classList.add("flex")  
+      Oscore.innerText++    
       return board[2][0];
     }
+    }, 500);
+
     // end check if o wins
     console.log(freeDivs, freeDivs[random])
 
