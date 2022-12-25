@@ -14,6 +14,8 @@ let Xscore = document.getElementById("Xscore")
 let Oscore = document.getElementById("Oscore")
 let GameResult = document.getElementById("GameResult")
 let Allsquare = document.getElementById("Allsquare")
+let CountXonBoard = 0
+let CountOonBoard = 0
 let board = [
   [0, 0, 0],
   [0, 0, 0],
@@ -56,8 +58,6 @@ Btn1.addEventListener("click", function () {
     WhoAreYou.innerHTML = "O (YOU)"
   }
 })
-
-
 let square = document.getElementsByClassName("square")
 let array = [
   [0, 0, 0],
@@ -89,7 +89,6 @@ Allsquare.addEventListener('mouseover', function (event) {
     if (style1.display === "none" && style2.display === "none") {
       // Show the third child
       event.target.children[2].style.display = "flex";
-      console.log(event.target.children);
     }
   }
 });
@@ -99,7 +98,6 @@ Allsquare.addEventListener('mouseout', function (event) {
   if (event.target.matches(".square")) {
     // Hide the third child
     event.target.children[2].style.display = "none";
-    console.log(event.target.children);
   }
 });
 
@@ -123,50 +121,28 @@ Allsquare.addEventListener('click', function (event) {
     for (ii = 0; ii < 3; ++ii) {
       boardWithDivs[i] = a = [];
       for (jj = 0; jj < 3; ++jj) {
-        if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
+        if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && CountXonBoard == CountOonBoard) {
+          CountXonBoard++
           boardWithDivs[ii][jj].children[0].className = "flex"
           board[ii][jj] = 1
-          // console.log( boardWithDivs[ii][jj].children[0])
           // check if x wins
-          // Check rows
           for (let i = 0; i < 3; i++) {
-            if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) {
-
+            if ((board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) ||
+              (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 1) ||
+              (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 1) ||
+              (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 1)) {
               setTimeout(() => {
                 GameResult.classList.remove("hidden")
                 GameResult.classList.add("flex")
-                Xscore.innerText++
-              }, 200);
-              return board[i][0];
-            }
-          }
-          // Check columns
-          for (let i = 0; i < 3; i++) {
-            if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 1) {
-              setTimeout(() => {
-                GameResult.classList.remove("hidden")
-                GameResult.classList.add("flex")
+                if(currentchoice == "xicon"){
+                  GameResult.children[0].innerText = "YOU WON!"
+                }else if(currentchoice == "oicon"){
+                  GameResult.children[0].innerText = "OH NO, YOU LOST…"
+                }
                 Xscore.innerText++
               }, 200);
               return board[0][i];
             }
-          }
-          // Check diagonals
-          if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 1) {
-            setTimeout(() => {
-              GameResult.classList.remove("hidden")
-              GameResult.classList.add("flex")
-              Xscore.innerText++
-            }, 200);
-            return board[0][0];
-          }
-          if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 1) {
-            setTimeout(() => {
-              GameResult.classList.remove("hidden")
-              GameResult.classList.add("flex")
-              Xscore.innerText++
-            }, 200);
-            return board[2][0];
           }
           // end check for x
           freeDivs = []
@@ -180,6 +156,7 @@ Allsquare.addEventListener('click', function (event) {
           const random = Math.floor(Math.random() * freeDivs.length);
           setTimeout(() => {
             freeDivs[random].children[1].className = "flex"
+            CountOonBoard++
             for (i = 0; i < 3; i++) {
               for (a = 0; a < 3; a++) {
                 if (boardWithDivs[i][a].id == freeDivs[random].id) {
@@ -190,34 +167,21 @@ Allsquare.addEventListener('click', function (event) {
             // check if o wins
             // Check rows
             for (let i = 0; i < 3; i++) {
-              if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 2) {
+              if ((board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 2) || 
+                  (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 2) ||
+                  (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 2) ||
+                  (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 2)) {
                 GameResult.classList.remove("hidden")
                 GameResult.classList.add("flex")
+            
+                if(currentchoice == "oicon"){
+                  GameResult.children[0].innerText = "YOU WON!"
+                }else if(currentchoice == "xicon"){
+                  GameResult.children[0].innerText = "OH NO, YOU LOST…"
+                }
                 Oscore.innerText++
                 return board[i][0];
               }
-            }
-            // Check columns
-            for (let i = 0; i < 3; i++) {
-              if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 2) {
-                GameResult.classList.remove("hidden")
-                GameResult.classList.add("flex")
-                Oscore.innerText++
-                return board[0][i];
-              }
-            }
-            // Check diagonals
-            if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 2) {
-              GameResult.classList.remove("hidden")
-              GameResult.classList.add("flex")
-              Oscore.innerText++
-              return board[0][0];
-            }
-            if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 2) {
-              GameResult.classList.remove("hidden")
-              GameResult.classList.add("flex")
-              Oscore.innerText++
-              return board[2][0];
             }
           }, 300);
           // end check if o wins
@@ -227,6 +191,8 @@ Allsquare.addEventListener('click', function (event) {
               [0, 0, 0],
               [0, 0, 0]
             ]
+            CountOonBoard = 0
+            CountXonBoard = 0
             for (i = 0; i < 3; i++) {
               for (a = 0; a < 3; a++) {
                 boardWithDivs[i][a].children[0].className = "hidden"
