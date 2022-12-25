@@ -14,7 +14,7 @@ theme: {
         'SilverHover': '#DBE8ED',
       },
       fontFamily: {
-        'Outfit': ['Outfit'],
+        'Outfit': ['Outfit', 'sans-serif'],
       },
       screens: {
         'des': '1440px',

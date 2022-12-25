@@ -63,7 +63,10 @@ let board = [
   [0, 0, 0],
   [0, 0, 0]
 ];
-
+let Xwins = document.getElementById("Xwins")
+let Owins = document.getElementById("Owins")
+let Xscore = document.getElementById("Xscore")
+let Oscore = document.getElementById("Oscore")
 // Check which was clicked
 let Allsquare = document.getElementById("Allsquare")
 Allsquare.addEventListener('click', function (event) {
@@ -83,10 +86,14 @@ Allsquare.addEventListener('click', function (event) {
         }
       }
     }
+
+    // check if x wins
         // Check rows
     for (let i = 0; i < 3; i++) {
       if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) {
-        console.log("win")
+        Xwins.classList.remove("hidden")
+        Xwins.classList.add("flex")  
+        Xscore.innerText++
         return board[i][0];
       }
     }
@@ -94,20 +101,30 @@ Allsquare.addEventListener('click', function (event) {
     // Check columns
     for (let i = 0; i < 3; i++) {
       if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 1) {
-        alert("you win")
+        Xwins.classList.remove("hidden")
+        Xwins.classList.add("flex")  
+        Xscore.innerText++
         return board[0][i];
       }
     }
 
     // Check diagonals
     if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 1) {
-      alert("you win")
+      Xwins.classList.remove("hidden")
+      Xwins.classList.add("flex")  
+      Xscore.innerText++
       return board[0][0];
     }
     if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 1) {
-      alert("you win")
+      Xwins.classList.remove("hidden")
+      Xwins.classList.add("flex") 
+      Xscore.innerText++ 
       return board[2][0];
     }
+
+    // end check for x
+
+
     freeDivs = []
     for(i = 0; i < 3; i++){
       for(a = 0; a < 3; a++){
@@ -125,6 +142,38 @@ Allsquare.addEventListener('click', function (event) {
         }
       }
     }
+
+        // check if o wins
+    // Check rows
+    for (let i = 0; i < 3; i++) {
+      if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 2) {
+        Owins.classList.remove("hidden")
+        Owins.classList.add("flex")
+        return board[i][0];
+      }
+    }
+
+    // Check columns
+    for (let i = 0; i < 3; i++) {
+      if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 2) {
+        Owins.classList.remove("hidden")
+        Owins.classList.add("flex")
+        return board[0][i];
+      }
+    }
+
+    // Check diagonals
+    if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 2) {
+      Owins.classList.remove("hidden")
+      Owins.classList.add("flex")      
+      return board[0][0];
+    }
+    if (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 2) {
+      Owins.classList.remove("hidden")
+      Owins.classList.add("flex")      
+      return board[2][0];
+    }
+    // end check if o wins
     console.log(freeDivs, freeDivs[random])
 
 
