@@ -578,8 +578,16 @@ video {
   background: #DBE8ED;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .absolute {
   position: absolute;
+}
+
+.relative {
+  position: relative;
 }
 
 .left-\[50\%\] {
@@ -770,16 +778,16 @@ video {
   gap: 1.5rem;
 }
 
+.gap-\[15px\] {
+  gap: 15px;
+}
+
 .gap-\[23px\] {
   gap: 23px;
 }
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-\[15px\] {
-  gap: 15px;
 }
 
 .rounded-\[10px\] {

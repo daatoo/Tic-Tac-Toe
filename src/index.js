@@ -13,6 +13,7 @@ let Owins = document.getElementById("Owins")
 let Xscore = document.getElementById("Xscore")
 let Oscore = document.getElementById("Oscore")
 let GameResult = document.getElementById("GameResult")
+let Allsquare = document.getElementById("Allsquare")
 let board = [
   [0, 0, 0],
   [0, 0, 0],
@@ -64,46 +65,44 @@ let array = [
   [0, 0, 0]
 ]
 let c = 0
-for(i = 0; i < 3; i++) {
-  for(a = 0; a < 3; a++){
+for (i = 0; i < 3; i++) {
+  for (a = 0; a < 3; a++) {
     array[i][a] = square[c]
     c++
   }
 }
-console.log(array)
-// array.forEach(element => {
-//   element.forEach(div => {
-//     if(div){
-//       div.addEventListener("mouseover", function(){
-//         div.children[2].className = "flex"
-//       })
-//       div.addEventListener("mouseout", function(){
-//         div.children[2].className = "hidden"
-//       })
-//     }
-//   });
-  
+array.forEach(element => {
 
-// });
-for(i = 0; i < 3; i++) {
-  for(a = 0; a < 3; a++){
-    if(board[i][a] == 0){
-      array[i][a].addEventListener("mouseover", function(){
-        console.log(array[i][a].children[2])
+});
+Allsquare.addEventListener('mouseover', function (event) {
+  // Check if the event target is a square element
+  if (event.target.matches(".square")) {
+    // Get the children of the square element
+    let img0 = event.target.children[0];
+    let img1 = event.target.children[1];
 
-        array[i][a].children[2].className = "flex"
-      })
-      array[i][a].addEventListener("mouseout", function(){
-        array[i][a].children[2].className = "hidden"
-      })
+    // Get the computed styles of the children
+    var style1 = window.getComputedStyle(img0);
+    var style2 = window.getComputedStyle(img1);
+
+    // Check if both children are hidden
+    if (style1.display === "none" && style2.display === "none") {
+      // Show the third child
+      event.target.children[2].style.display = "flex";
+      console.log(event.target.children);
     }
   }
-}
-// for(i = 0; i < square.length; i++){
-//   square[i].addEventListener("mouseover", function(){
-//     square[i].children[2].className = "flex"
-//   })
-// }
+});
+
+Allsquare.addEventListener('mouseout', function (event) {
+  // Check if the event target is a square element
+  if (event.target.matches(".square")) {
+    // Hide the third child
+    event.target.children[2].style.display = "none";
+    console.log(event.target.children);
+  }
+});
+
 // Create Board With 2D Array and Add Html Divs
 boardWithDivs = [];
 let b = 0
@@ -115,7 +114,6 @@ for (i = 0; i < 3; ++i) {
   }
 }
 // Check which was clicked
-let Allsquare = document.getElementById("Allsquare")
 Allsquare.addEventListener('click', function (event) {
   const clickedElement = event.target;
   // console.log(clickedElement)
@@ -223,14 +221,14 @@ Allsquare.addEventListener('click', function (event) {
             }
           }, 300);
           // end check if o wins
-          NextRound.addEventListener("click", function(){
+          NextRound.addEventListener("click", function () {
             board = [
               [0, 0, 0],
               [0, 0, 0],
               [0, 0, 0]
             ]
-            for(i = 0; i < 3; i++){
-              for(a = 0; a < 3; a++){
+            for (i = 0; i < 3; i++) {
+              for (a = 0; a < 3; a++) {
                 boardWithDivs[i][a].children[0].className = "hidden"
                 boardWithDivs[i][a].children[1].className = "hidden"
                 GameResult.classList.remove("flex")
