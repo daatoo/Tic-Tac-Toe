@@ -12,16 +12,14 @@ let Xwins = document.getElementById("Xwins")
 let Owins = document.getElementById("Owins")
 let Xscore = document.getElementById("Xscore")
 let Oscore = document.getElementById("Oscore")
+let TieScore = document.getElementById("TieScore")
 let GameResult = document.getElementById("GameResult")
 let Allsquare = document.getElementById("Allsquare")
 let CountXonBoard = 0
 let CountOonBoard = 0
-let board = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0]
-];
+
 document.querySelectorAll('button').forEach(occurence => {
+
   let id = occurence.getAttribute('id');
   occurence.addEventListener('click', function () {
     if (id == "xicon") {
@@ -57,156 +55,223 @@ Btn1.addEventListener("click", function () {
     WhichIsPc.innerHTML = "X (CPU)"
     WhoAreYou.innerHTML = "O (YOU)"
   }
+
 })
-let square = document.getElementsByClassName("square")
-let array = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0]
-]
-let c = 0
-for (i = 0; i < 3; i++) {
-  for (a = 0; a < 3; a++) {
-    array[i][a] = square[c]
-    c++
-  }
+
+
+const BOARD_SIZE = 3;
+
+const X = 'X';
+const O = 'O';
+
+let board = [[0, 0, 0],
+[0, 0, 0],
+[0, 0, 0]
+];
+
+let currentPlayer = X;
+
+const getNextPlayer = (currentPlayer) => {
+  return currentPlayer === X ? O : X;
 }
-array.forEach(element => {
-
-});
-Allsquare.addEventListener('mouseover', function (event) {
-  // Check if the event target is a square element
-  if (event.target.matches(".square")) {
-    // Get the children of the square element
-    let img0 = event.target.children[0];
-    let img1 = event.target.children[1];
-
-    // Get the computed styles of the children
-    var style1 = window.getComputedStyle(img0);
-    var style2 = window.getComputedStyle(img1);
-
-    // Check if both children are hidden
-    if (style1.display === "none" && style2.display === "none") {
-      // Show the third child
-      event.target.children[2].style.display = "flex";
-    }
-  }
-});
-
-Allsquare.addEventListener('mouseout', function (event) {
-  // Check if the event target is a square element
-  if (event.target.matches(".square")) {
-    // Hide the third child
-    event.target.children[2].style.display = "none";
-  }
-});
-
 // Create Board With 2D Array and Add Html Divs
-boardWithDivs = [];
-let b = 0
+let boardWithDivs = [];
+let b = 0;
 for (i = 0; i < 3; ++i) {
-  boardWithDivs[i] = a = [];
+  boardWithDivs[i] = [];
   for (j = 0; j < 3; ++j) {
-    boardWithDivs[i][j] = document.getElementById(b)
-    b = b + 1
+    boardWithDivs[i][j] = document.getElementById(b);
+    b = b + 1;
   }
 }
+console.log(boardWithDivs);
+let roww;
+let coll;
 // Check which was clicked
 Allsquare.addEventListener('click', function (event) {
   const clickedElement = event.target;
-  // console.log(clickedElement)
-  if (clickedElement.matches(".square")) {
+  // console.log(clickedElement);
+  if (clickedElement.matches('.square')) {
     // Get the row and column of the clicked square
-    let k = 0
-    for (ii = 0; ii < 3; ++ii) {
-      boardWithDivs[i] = a = [];
-      for (jj = 0; jj < 3; ++jj) {
-        if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && CountXonBoard == CountOonBoard) {
-          CountXonBoard++
+    for (let ii = 0; ii < 3; ii++) {
+      for (let jj = 0; jj < 3; jj++) {
+        if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
           boardWithDivs[ii][jj].children[0].className = "flex"
-          board[ii][jj] = 1
-          // check if x wins
-          for (let i = 0; i < 3; i++) {
-            if ((board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 1) ||
-              (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 1) ||
-              (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 1) ||
-              (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 1)) {
-              setTimeout(() => {
-                GameResult.classList.remove("hidden")
-                GameResult.classList.add("flex")
-                if(currentchoice == "xicon"){
-                  GameResult.children[0].innerText = "YOU WON!"
-                }else if(currentchoice == "oicon"){
-                  GameResult.children[0].innerText = "OH NO, YOU LOST…"
-                }
-                Xscore.innerText++
-              }, 200);
-              return board[0][i];
-            }
-          }
-          // end check for x
-          freeDivs = []
-          for (i = 0; i < 3; i++) {
-            for (a = 0; a < 3; a++) {
-              if (board[i][a] == 0) {
-                freeDivs.push(boardWithDivs[i][a])
-              }
-            }
-          }
-          const random = Math.floor(Math.random() * freeDivs.length);
-          setTimeout(() => {
-            freeDivs[random].children[1].className = "flex"
-            CountOonBoard++
-            for (i = 0; i < 3; i++) {
-              for (a = 0; a < 3; a++) {
-                if (boardWithDivs[i][a].id == freeDivs[random].id) {
-                  board[i][a] = 2
-                }
-              }
-            }
-            // check if o wins
-            // Check rows
-            for (let i = 0; i < 3; i++) {
-              if ((board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] === 2) || 
-                  (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] === 2) ||
-                  (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] === 2) ||
-                  (board[2][0] === board[1][1] && board[1][1] === board[0][2] && board[0][2] === 2)) {
-                GameResult.classList.remove("hidden")
-                GameResult.classList.add("flex")
-            
-                if(currentchoice == "oicon"){
-                  GameResult.children[0].innerText = "YOU WON!"
-                }else if(currentchoice == "xicon"){
-                  GameResult.children[0].innerText = "OH NO, YOU LOST…"
-                }
-                Oscore.innerText++
-                return board[i][0];
-              }
-            }
-          }, 300);
-          // end check if o wins
-          NextRound.addEventListener("click", function () {
-            board = [
-              [0, 0, 0],
-              [0, 0, 0],
-              [0, 0, 0]
-            ]
-            CountOonBoard = 0
-            CountXonBoard = 0
-            for (i = 0; i < 3; i++) {
-              for (a = 0; a < 3; a++) {
-                boardWithDivs[i][a].children[0].className = "hidden"
-                boardWithDivs[i][a].children[1].className = "hidden"
-                GameResult.classList.remove("flex")
-                GameResult.classList.add("hidden")
+          roww = ii;
+          coll = jj;
+          play()
 
-              }
-            }
-          })
         }
       }
     }
+    // play()
+  }
+});
+
+const makeMove = (row, col) => {
+  if (board[row][col] !== 0) {
+    return;
+  }
+  board[row][col] = currentPlayer;
+  currentPlayer = getNextPlayer(currentPlayer);
+}
+
+const checkWin = () => {
+  // Check rows
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    if (board[row][0] !== 0 && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
+      return true;
+    }
+  }
+  // Check columns
+  for (let col = 0; col < BOARD_SIZE; col++) {
+    if (board[0][col] !== 0 && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
+      return true;
+    }
+  }
+  // Check diagonals
+  if (board[0][0] !== 0 && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+    return true;
+  }
+  if (board[0][2] !== 0 && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+    return true;
+  }
+  return false;
+}
+
+const getBestMove = () => {
+  // Check if we can win in the next move
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    for (let col = 0; col < BOARD_SIZE; col++) {
+      if (board[row][col] === 0) {
+        board[row][col] = O;
+        if (checkWin()) {
+          board[row][col] = 0;
+          return { row, col };
+        }
+        board[row][col] = 0;
+      }
+    }
+  }
+  // Check if the player can win in the next move, and block them
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    for (let col = 0; col < BOARD_SIZE; col++) {
+      if (board[row][col] === 0) {
+        board[row][col] = X;
+        if (checkWin()) {
+          board[row][col] = 0;
+          return { row, col };
+        }
+        board[row][col] = 0;
+      }
+    }
+  }
+  // Find an empty corner
+  if (board[0][0] === 0) {
+    return { row: 0, col: 0 };
+  }
+  if (board[0][2] === 0) {
+    return { row: 0, col: 2 };
+  }
+  if (board[2][0] === 0) {
+    return { row: 2, col: 0 };
+  }
+  if (board[2][2] === 0) {
+    return { row: 2, col: 2 };
+  }
+  // Find an empty side
+  if (board[0][1] === 0) {
+    return { row: 0, col: 1 };
+  }
+  if (board[1][0] === 0) {
+    return { row: 1, col: 0 };
+  }
+  if (board[1][2] === 0) {
+    return { row: 1, col: 2 };
+  }
+  if (board[2][1] === 0) {
+    return { row: 2, col: 1 };
+  }
+  return null;
+}
+let ResultX = document.getElementById("ResultX")
+let ResultO = document.getElementById("ResultO")
+let TakesRound = document.getElementById("TakesRound")
+const play = () => {
+
+  // Player's turn
+  let row = roww
+  let col = coll
+  makeMove(row, col);
+  if (checkWin()) {
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "flex"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+      TakesRound.innerText = "TAKES THE ROUND"
+      GameResult.children[0].classList.remove("hidden")
+      GameResult.children[0].innerText = "YOU WON!"
+      Xscore.innerText++
+    }, 200);
+  }
+  if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
+    // Computer's turn
+    let move = getBestMove();
+    boardWithDivs[move.row][move.col].children[1].className = "flex"
+    console.log(`Computer made a move at (${move.row}, ${move.col})`);
+    makeMove(move.row, move.col);
+    if (checkWin()) {
+      console.log('Computer won!');
+      setTimeout(() => {
+        GameResult.classList.remove("hidden")
+        GameResult.classList.add("flex")
+        ResultX.className = "hidden"
+        ResultO.className = "flex"
+        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+        TakesRound.innerText = "TAKES THE ROUND"
+        GameResult.children[0].classList.remove("hidden")
+        GameResult.children[0].innerText = "OH NO, YOU LOST…"
+        Oscore.innerText++
+      }, 200);
+    }
+  } else {
+    console.log('It\'s a draw!');
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "hidden"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+      TakesRound.innerText = "ROUND TIED"
+      GameResult.children[0].classList.add("hidden")
+      TieScore.innerText++
+    }, 200);
+  }
+  console.log('Current board:');
+  console.log(board[0]);
+  console.log(board[1]);
+  console.log(board[2]);
+  console.log('Enter row and col for your move (0-indexed):');
+
+}
+NextRound.addEventListener("click", function () {
+  board = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]
+  CountOonBoard = 0
+  CountXonBoard = 0
+  for (i = 0; i < 3; i++) {
+    for (a = 0; a < 3; a++) {
+      boardWithDivs[i][a].children[0].className = "hidden"
+      boardWithDivs[i][a].children[1].className = "hidden"
+      GameResult.classList.remove("flex")
+      GameResult.classList.add("hidden")
+
+    }
   }
 })
-
 
