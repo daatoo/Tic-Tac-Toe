@@ -20,20 +20,22 @@ let CountOonBoard = 0
 let ResultX = document.getElementById("ResultX")
 let ResultO = document.getElementById("ResultO")
 let TakesRound = document.getElementById("TakesRound")
+let number = 0;
+
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
 ];
-  // Create Board With 2D Array and Add Html Divs
-  let boardWithDivs = [];
-  let b = 0;
-  for (i = 0; i < 3; ++i) {
-    boardWithDivs[i] = [];
-    for (j = 0; j < 3; ++j) {
-      boardWithDivs[i][j] = document.getElementById(b);
-      b = b + 1;
-    }
+// Create Board With 2D Array and Add Html Divs
+let boardWithDivs = [];
+let b = 0;
+for (i = 0; i < 3; ++i) {
+  boardWithDivs[i] = [];
+  for (j = 0; j < 3; ++j) {
+    boardWithDivs[i][j] = document.getElementById(b);
+    b = b + 1;
   }
+}
 document.querySelectorAll('button').forEach(occurence => {
 
   let id = occurence.getAttribute('id');
@@ -87,6 +89,7 @@ Btn1.addEventListener("click", function () {
 
   let roww;
   let coll;
+  let FirstMove = []
   // Check which was clicked
   Allsquare.addEventListener('click', function (event) {
     const clickedElement = event.target;
@@ -95,10 +98,16 @@ Btn1.addEventListener("click", function () {
       for (let ii = 0; ii < 3; ii++) {
         for (let jj = 0; jj < 3; jj++) {
           if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
+            if (number == 0) {
+              FirstMove[0] = ii
+              FirstMove[1] = jj
+            }
+            number++
             boardWithDivs[ii][jj].children[0].className = "flex"
             roww = ii;
             coll = jj;
             play()
+            console.log(FirstMove)
 
           }
         }
@@ -191,33 +200,102 @@ Btn1.addEventListener("click", function () {
         }
       }
     }
-    // Find an empty corner
-    if (board[0][0] === 0) {
-      return { row: 0, col: 0 };
+    if (FirstMove[0] == 1 && FirstMove[1] == 1) {
+      // Find an empty corner
+      if (board[0][0] === 0) {
+        return { row: 0, col: 0 };
+      }
+      if (board[0][2] === 0) {
+        return { row: 0, col: 2 };
+      }
+      if (board[2][0] === 0) {
+        return { row: 2, col: 0 };
+      }
+      if (board[2][2] === 0) {
+        return { row: 2, col: 2 };
+      }
+      // Find an empty side
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      return null;
+
+    } else if ((FirstMove[0] == 0 && FirstMove[1] == 0) ||
+      (FirstMove[0] == 2 && FirstMove[1] == 0) ||
+      (FirstMove[0] == 0 && FirstMove[1] == 2) ||
+      (FirstMove[0] == 2 && FirstMove[1] == 2)) {
+      if (board[1][1] === 0) {
+        return { row: 1, col: 1 };
+      }
+      // Find an empty side
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      // Find an empty corner
+      if (board[0][0] === 0) {
+        return { row: 0, col: 0 };
+      }
+      if (board[0][2] === 0) {
+        return { row: 0, col: 2 };
+      }
+      if (board[2][0] === 0) {
+        return { row: 2, col: 0 };
+      }
+      if (board[2][2] === 0) {
+        return { row: 2, col: 2 };
+      }
+      return null;
+    } else {
+      if (board[1][1] === 0) {
+        return { row: 1, col: 1 };
+      }        
+      // Find an empty side
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      // Find an empty corner
+      if (board[0][0] === 0) {
+        return { row: 0, col: 0 };
+      }
+      if (board[0][2] === 0) {
+        return { row: 0, col: 2 };
+      }
+      if (board[2][0] === 0) {
+        return { row: 2, col: 0 };
+      }
+      if (board[2][2] === 0) {
+        return { row: 2, col: 2 };
+      }
+      return null;
     }
-    if (board[0][2] === 0) {
-      return { row: 0, col: 2 };
-    }
-    if (board[2][0] === 0) {
-      return { row: 2, col: 0 };
-    }
-    if (board[2][2] === 0) {
-      return { row: 2, col: 2 };
-    }
-    // Find an empty side
-    if (board[0][1] === 0) {
-      return { row: 0, col: 1 };
-    }
-    if (board[1][0] === 0) {
-      return { row: 1, col: 0 };
-    }
-    if (board[1][2] === 0) {
-      return { row: 1, col: 2 };
-    }
-    if (board[2][1] === 0) {
-      return { row: 2, col: 1 };
-    }
-    return null;
+
   }
 
   const play = () => {
@@ -286,12 +364,15 @@ NextRound.addEventListener("click", function () {
   ]
   CountOonBoard = 0
   CountXonBoard = 0
+  number = 0
+
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
       boardWithDivs[i][a].children[0].className = "hidden"
       boardWithDivs[i][a].children[1].className = "hidden"
       GameResult.classList.remove("flex")
       GameResult.classList.add("hidden")
+
 
     }
   }
