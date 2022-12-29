@@ -84,13 +84,11 @@ for (i = 0; i < 3; ++i) {
     b = b + 1;
   }
 }
-console.log(boardWithDivs);
 let roww;
 let coll;
 // Check which was clicked
 Allsquare.addEventListener('click', function (event) {
   const clickedElement = event.target;
-  // console.log(clickedElement);
   if (clickedElement.matches('.square')) {
     // Get the row and column of the clicked square
     for (let ii = 0; ii < 3; ii++) {
@@ -105,6 +103,32 @@ Allsquare.addEventListener('click', function (event) {
       }
     }
     // play()
+  }
+});
+Allsquare.addEventListener('mouseover', function (event) {
+  // Check if the event target is a square element
+  if (event.target.matches(".square")) {
+    // Get the children of the square element
+    let img0 = event.target.children[0];
+    let img1 = event.target.children[1];
+
+    // Get the computed styles of the children
+    var style1 = window.getComputedStyle(img0);
+    var style2 = window.getComputedStyle(img1);
+
+    // Check if both children are hidden
+    if (style1.display === "none" && style2.display === "none") {
+      // Show the third child
+      event.target.children[2].style.display = "flex";
+    }
+  }
+});
+
+Allsquare.addEventListener('mouseout', function (event) {
+  // Check if the event target is a square element
+  if (event.target.matches(".square")) {
+    // Hide the third child
+    event.target.children[2].style.display = "none";
   }
 });
 
@@ -214,16 +238,17 @@ const play = () => {
       GameResult.children[0].classList.remove("hidden")
       GameResult.children[0].innerText = "YOU WON!"
       Xscore.innerText++
-    }, 200);
+    }, 300);
   }
   if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
     // Computer's turn
     let move = getBestMove();
-    boardWithDivs[move.row][move.col].children[1].className = "flex"
-    console.log(`Computer made a move at (${move.row}, ${move.col})`);
     makeMove(move.row, move.col);
+    setTimeout(() =>{
+      boardWithDivs[move.row][move.col].children[1].className = "flex"
+    }, 300)
+
     if (checkWin()) {
-      console.log('Computer won!');
       setTimeout(() => {
         GameResult.classList.remove("hidden")
         GameResult.classList.add("flex")
@@ -234,10 +259,9 @@ const play = () => {
         GameResult.children[0].classList.remove("hidden")
         GameResult.children[0].innerText = "OH NO, YOU LOST…"
         Oscore.innerText++
-      }, 200);
+      }, 300);
     }
   } else {
-    console.log('It\'s a draw!');
     setTimeout(() => {
       GameResult.classList.remove("hidden")
       GameResult.classList.add("flex")
@@ -247,13 +271,8 @@ const play = () => {
       TakesRound.innerText = "ROUND TIED"
       GameResult.children[0].classList.add("hidden")
       TieScore.innerText++
-    }, 200);
+    }, 300);
   }
-  console.log('Current board:');
-  console.log(board[0]);
-  console.log(board[1]);
-  console.log(board[2]);
-  console.log('Enter row and col for your move (0-indexed):');
 
 }
 NextRound.addEventListener("click", function () {
