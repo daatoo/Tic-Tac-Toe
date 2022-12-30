@@ -15,15 +15,14 @@ let Oscore = document.getElementById("Oscore")
 let TieScore = document.getElementById("TieScore")
 let GameResult = document.getElementById("GameResult")
 let Allsquare = document.getElementById("Allsquare")
-let CountXonBoard = 0
-let CountOonBoard = 0
 let ResultX = document.getElementById("ResultX")
 let ResultO = document.getElementById("ResultO")
 let TakesRound = document.getElementById("TakesRound")
 let number = 0;
 let Xturn = document.getElementById("Xturn")
 let Oturn = document.getElementById("Oturn")
-
+let NumOfOmoves = 0
+let NumOfXmoves = 0
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
@@ -98,7 +97,7 @@ Btn1.addEventListener("click", function () {
         // Get the row and column of the clicked square
         for (let ii = 0; ii < 3; ii++) {
           for (let jj = 0; jj < 3; jj++) {
-            if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
+            if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves == NumOfXmoves) {
               if (number == 0) {
                 FirstMove[0] = ii
                 FirstMove[1] = jj
@@ -111,6 +110,7 @@ Btn1.addEventListener("click", function () {
               Oturn.classList.remove("hidden")
               roww = ii;
               coll = jj;
+              NumOfXmoves++
               play()
 
             }
@@ -345,6 +345,7 @@ Btn1.addEventListener("click", function () {
         makeMove(move.row, move.col);
         setTimeout(() => {
           boardWithDivs[move.row][move.col].children[1].className = "flex"
+          NumOfOmoves++
           Xturn.classList.add("flex")
           Xturn.classList.remove("hidden")
           Oturn.classList.add("hidden")
@@ -393,8 +394,8 @@ NextRound.addEventListener("click", function () {
     [0, 0, 0],
     [0, 0, 0]
   ]
-  CountOonBoard = 0
-  CountXonBoard = 0
+  NumOfOmoves = 0
+  NumOfXmoves = 0
   number = 0
   Xturn.classList.add("flex")
   Xturn.classList.remove("hidden")
