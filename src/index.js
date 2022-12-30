@@ -23,6 +23,10 @@ let Xturn = document.getElementById("Xturn")
 let Oturn = document.getElementById("Oturn")
 let NumOfOmoves = 0
 let NumOfXmoves = 0
+let ModeNormal = document.getElementById("ModeNormal")
+let ModeDifficult = document.getElementById("ModeDifficult")
+let currentMode
+let UltimateMode
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
@@ -59,12 +63,34 @@ document.querySelectorAll('button').forEach(occurence => {
       oicon.children[0].className = "w-8 h-8 rounded-[50%] flex justify-center items-center bg-DarkNavy"
       oicon.children[0].children[0].className = "w-3 h-3 rounded-[50%] bg-Silver"
       currentchoice = "oicon"
+    } else if (id == "ModeNormal") {
+      ModeNormal.classList.add("bg-Silver")
+      ModeNormal.classList.remove("hover:bg-SemiDarkNavy")
+      document.getElementById("NormalText").classList.add("text-DarkNavy")
+      document.getElementById("NormalText").classList.remove("text-Silver")
+
+      ModeDifficult.classList.remove("bg-Silver")
+      ModeDifficult.classList.add("hover:bg-SemiDarkNavy")
+      document.getElementById("DifficultText").classList.remove("text-DarkNavy")
+      document.getElementById("DifficultText").classList.add("text-Silver")
+      currentMode = "Normal"
+    } else if (id == "ModeDifficult") {
+      ModeNormal.classList.remove("bg-Silver")
+      ModeNormal.classList.add("hover:bg-SemiDarkNavy")
+      document.getElementById("NormalText").classList.remove("text-DarkNavy")
+      document.getElementById("NormalText").classList.add("text-Silver")
+
+      ModeDifficult.classList.add("bg-Silver")
+      ModeDifficult.classList.remove("hover:bg-SemiDarkNavy")
+      document.getElementById("DifficultText").classList.add("text-DarkNavy")
+      document.getElementById("DifficultText").classList.remove("text-Silver")
+      currentMode = "Difficult"
     }
   });
 });
 Btn1.addEventListener("click", function () {
 
-  if (currentchoice == "xicon") {
+  if (currentchoice == "xicon" && (currentMode == "Difficult" || currentMode == "Normal")) {
     startmenu.classList.add("hidden")
     startmenu.classList.remove("flex")
     gamediv.classList.remove("hidden")
@@ -204,117 +230,147 @@ Btn1.addEventListener("click", function () {
           }
         }
       }
-      if (FirstMove[0] == 1 && FirstMove[1] == 1) {
-        // Find an empty corner
-        if (board[0][0] === 0) {
-          return { row: 0, col: 0 };
-        }
-        if (board[0][2] === 0) {
-          return { row: 0, col: 2 };
-        }
-        if (board[2][0] === 0) {
-          return { row: 2, col: 0 };
-        }
-        if (board[2][2] === 0) {
-          return { row: 2, col: 2 };
-        }
-        // Find an empty side
-        if (board[0][1] === 0) {
-          return { row: 0, col: 1 };
-        }
-        if (board[1][0] === 0) {
-          return { row: 1, col: 0 };
-        }
-        if (board[1][2] === 0) {
-          return { row: 1, col: 2 };
-        }
-        if (board[2][1] === 0) {
-          return { row: 2, col: 1 };
-        }
-        return null;
+      if (currentMode == "Difficult") {
+        if (FirstMove[0] == 1 && FirstMove[1] == 1) {
+          // Find an empty corner
+          if (board[0][0] === 0) {
+            return { row: 0, col: 0 };
+          }
+          if (board[0][2] === 0) {
+            return { row: 0, col: 2 };
+          }
+          if (board[2][0] === 0) {
+            return { row: 2, col: 0 };
+          }
+          if (board[2][2] === 0) {
+            return { row: 2, col: 2 };
+          }
+          // Find an empty side
+          if (board[0][1] === 0) {
+            return { row: 0, col: 1 };
+          }
+          if (board[1][0] === 0) {
+            return { row: 1, col: 0 };
+          }
+          if (board[1][2] === 0) {
+            return { row: 1, col: 2 };
+          }
+          if (board[2][1] === 0) {
+            return { row: 2, col: 1 };
+          }
+          return null;
 
-      } else if ((FirstMove[0] == 0 && FirstMove[1] == 0) ||
-        (FirstMove[0] == 2 && FirstMove[1] == 0) ||
-        (FirstMove[0] == 0 && FirstMove[1] == 2) ||
-        (FirstMove[0] == 2 && FirstMove[1] == 2)) {
-        if (board[1][1] === 0) {
-          return { row: 1, col: 1 };
+        } else if ((FirstMove[0] == 0 && FirstMove[1] == 0) ||
+          (FirstMove[0] == 2 && FirstMove[1] == 0) ||
+          (FirstMove[0] == 0 && FirstMove[1] == 2) ||
+          (FirstMove[0] == 2 && FirstMove[1] == 2)) {
+          if (board[1][1] === 0) {
+            return { row: 1, col: 1 };
+          }
+          // Find an empty side
+          if (board[0][1] === 0) {
+            return { row: 0, col: 1 };
+          }
+          if (board[1][0] === 0) {
+            return { row: 1, col: 0 };
+          }
+          if (board[1][2] === 0) {
+            return { row: 1, col: 2 };
+          }
+          if (board[2][1] === 0) {
+            return { row: 2, col: 1 };
+          }
+          // Find an empty corner
+          if (board[0][0] === 0) {
+            return { row: 0, col: 0 };
+          }
+          if (board[0][2] === 0) {
+            return { row: 0, col: 2 };
+          }
+          if (board[2][0] === 0) {
+            return { row: 2, col: 0 };
+          }
+          if (board[2][2] === 0) {
+            return { row: 2, col: 2 };
+          }
+          return null;
+        } else if (FirstMove[0] == 1 && FirstMove[1] == 2) {
+          if (board[1][1] === 0) {
+            return { row: 1, col: 1 };
+          }
+          if (board[0][2] === 0) {
+            return { row: 0, col: 2 };
+          }
+          if (board[2][0] === 0) {
+            return { row: 2, col: 0 };
+          }
+          if (board[0][0] === 0) {
+            return { row: 0, col: 0 };
+          }
+          if (board[2][2] === 0) {
+            return { row: 2, col: 2 };
+          }
         }
-        // Find an empty side
-        if (board[0][1] === 0) {
-          return { row: 0, col: 1 };
-        }
-        if (board[1][0] === 0) {
-          return { row: 1, col: 0 };
-        }
-        if (board[1][2] === 0) {
-          return { row: 1, col: 2 };
-        }
-        if (board[2][1] === 0) {
-          return { row: 2, col: 1 };
-        }
-        // Find an empty corner
-        if (board[0][0] === 0) {
-          return { row: 0, col: 0 };
-        }
-        if (board[0][2] === 0) {
-          return { row: 0, col: 2 };
-        }
-        if (board[2][0] === 0) {
-          return { row: 2, col: 0 };
-        }
-        if (board[2][2] === 0) {
-          return { row: 2, col: 2 };
-        }
-        return null;
-      } else if (FirstMove[0] == 1 && FirstMove[1] == 2) {
-        if (board[1][1] === 0) {
-          return { row: 1, col: 1 };
-        }
-        if (board[0][2] === 0) {
-          return { row: 0, col: 2 };
-        }
-        if (board[2][0] === 0) {
-          return { row: 2, col: 0 };
-        }
-        if (board[0][0] === 0) {
-          return { row: 0, col: 0 };
-        }
-        if (board[2][2] === 0) {
-          return { row: 2, col: 2 };
-        }
-      }
-      else {
-        if (board[1][1] === 0) {
-          return { row: 1, col: 1 };
-        }
-        // Find an empty corner
-        if (board[0][0] === 0) {
-          return { row: 0, col: 0 };
-        }
-        if (board[0][2] === 0) {
-          return { row: 0, col: 2 };
-        }
-        if (board[2][0] === 0) {
-          return { row: 2, col: 0 };
-        }
-        if (board[2][2] === 0) {
-          return { row: 2, col: 2 };
-        }
-        // Find an empty side
-        if (board[0][1] === 0) {
-          return { row: 0, col: 1 };
-        }
-        if (board[1][0] === 0) {
-          return { row: 1, col: 0 };
-        }
-        if (board[1][2] === 0) {
-          return { row: 1, col: 2 };
-        }
-        if (board[2][1] === 0) {
-          return { row: 2, col: 1 };
-        }
+        else {
+          if (board[1][1] === 0) {
+            return { row: 1, col: 1 };
+          }
+          // Find an empty corner
+          if (board[0][0] === 0) {
+            return { row: 0, col: 0 };
+          }
+          if (board[0][2] === 0) {
+            return { row: 0, col: 2 };
+          }
+          if (board[2][0] === 0) {
+            return { row: 2, col: 0 };
+          }
+          if (board[2][2] === 0) {
+            return { row: 2, col: 2 };
+          }
+          // Find an empty side
+          if (board[0][1] === 0) {
+            return { row: 0, col: 1 };
+          }
+          if (board[1][0] === 0) {
+            return { row: 1, col: 0 };
+          }
+          if (board[1][2] === 0) {
+            return { row: 1, col: 2 };
+          }
+          if (board[2][1] === 0) {
+            return { row: 2, col: 1 };
+          }
 
+          return null;
+        }
+      } else if (currentMode == "Normal") {
+        // Find an empty corner
+        if (board[0][0] === 0) {
+          return { row: 0, col: 0 };
+        }
+        if (board[0][2] === 0) {
+          return { row: 0, col: 2 };
+        }
+        if (board[2][0] === 0) {
+          return { row: 2, col: 0 };
+        }
+        if (board[2][2] === 0) {
+          return { row: 2, col: 2 };
+        }
+        // Find an empty side
+        if (board[0][1] === 0) {
+          return { row: 0, col: 1 };
+        }
+        if (board[1][0] === 0) {
+          return { row: 1, col: 0 };
+        }
+        if (board[1][2] === 0) {
+          return { row: 1, col: 2 };
+        }
+        if (board[2][1] === 0) {
+          return { row: 2, col: 1 };
+        }
         return null;
       }
 
@@ -336,6 +392,7 @@ Btn1.addEventListener("click", function () {
           TakesRound.innerText = "TAKES THE ROUND"
           GameResult.children[0].classList.remove("hidden")
           GameResult.children[0].innerText = "YOU WON!"
+          gamediv.classList.add("pointer-events-none")
           Xscore.innerText++
         }, 400);
       }
@@ -362,6 +419,7 @@ Btn1.addEventListener("click", function () {
             TakesRound.innerText = "TAKES THE ROUND"
             GameResult.children[0].classList.remove("hidden")
             GameResult.children[0].innerText = "OH NO, YOU LOST…"
+            gamediv.classList.add("pointer-events-none")
             Oscore.innerText++
           }, 400);
         }
@@ -373,6 +431,7 @@ Btn1.addEventListener("click", function () {
           ResultO.className = "hidden"
           TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
           TakesRound.innerText = "ROUND TIED"
+          gamediv.classList.add("pointer-events-none")
           GameResult.children[0].classList.add("hidden")
           TieScore.innerText++
         }, 400);
@@ -401,6 +460,7 @@ NextRound.addEventListener("click", function () {
   Xturn.classList.remove("hidden")
   Oturn.classList.add("hidden")
   Oturn.classList.remove("flex")
+  gamediv.classList.remove("pointer-events-none")
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
       boardWithDivs[i][a].children[0].className = "hidden"
