@@ -1005,3 +1005,8 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(31 54 65 / var(--tw-bg-opacity));
 }
+
+.hover\:bg-Silver:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 191 201 / var(--tw-bg-opacity));
+}

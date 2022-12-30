@@ -8,6 +8,7 @@ let gamediv = document.getElementById("gamediv")
 let WhoAreYou = document.getElementById("WhichAreYou")
 let WhichIsPc = document.getElementById("WhichIsPc")
 let NextRound = document.getElementById("NextRound")
+let Quit = document.getElementById("Quit")
 let Xwins = document.getElementById("Xwins")
 let Owins = document.getElementById("Owins")
 let Xscore = document.getElementById("Xscore")
@@ -46,22 +47,34 @@ document.querySelectorAll('button').forEach(occurence => {
   let id = occurence.getAttribute('id');
   occurence.addEventListener('click', function () {
     if (id == "xicon") {
-      xicon.className = "w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center bg-Silver"
-      document.getElementById("partX1").className = "w-2.5 h-[42px] bg-DarkNavy -rotate-45 absolute rounded-[5px]"
-      document.getElementById("partX2").className = "w-2.5 h-[42px] bg-DarkNavy rotate-45 absolute rounded-[5px]"
+      xicon.classList.add("bg-Silver")
+      xicon.classList.remove("hover:bg-SemiDarkNavy")
+      document.getElementById("partX1").classList.add("bg-DarkNavy")
+      document.getElementById("partX1").classList.remove("bg-Silver")
+      document.getElementById("partX2").classList.add("bg-DarkNavy")
+      document.getElementById("partX2").classList.remove("bg-Silver")
 
-      oicon.className = "w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy"
-      oicon.children[0].className = "w-8 h-8 rounded-[50%] flex justify-center items-center bg-Silver"
-      oicon.children[0].children[0].className = "w-3 h-3 rounded-[50%] bg-DarkNavy"
+      oicon.classList.add("hover:bg-SemiDarkNavy")
+      oicon.classList.remove("bg-Silver")
+      oicon.children[0].classList.add("bg-Silver")
+      oicon.children[0].classList.remove("bg-DarkNavy")
+      oicon.children[0].children[0].classList.add("bg-DarkNavy")
+      oicon.children[0].children[0].classList.remove("bg-Silver")
       currentchoice = "xicon"
     } else if (id == "oicon") {
-      xicon.className = "w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center hover:bg-SemiDarkNavy"
-      document.getElementById("partX1").className = "w-2.5 h-[42px] bg-Silver -rotate-45 absolute rounded-[5px]"
-      document.getElementById("partX2").className = "w-2.5 h-[42px] bg-Silver rotate-45 absolute rounded-[5px]"
+      xicon.classList.remove("bg-Silver")
+      xicon.classList.add("hover:bg-SemiDarkNavy")
+      document.getElementById("partX1").classList.remove("bg-DarkNavy")
+      document.getElementById("partX1").classList.add("bg-Silver")
+      document.getElementById("partX2").classList.remove("bg-DarkNavy")
+      document.getElementById("partX2").classList.add("bg-Silver")
 
-      oicon.className = "w-[198px] h-[54px] rounded-[10px] cursor-pointer flex justify-center items-center bg-Silver"
-      oicon.children[0].className = "w-8 h-8 rounded-[50%] flex justify-center items-center bg-DarkNavy"
-      oicon.children[0].children[0].className = "w-3 h-3 rounded-[50%] bg-Silver"
+      oicon.classList.remove("hover:bg-SemiDarkNavy")
+      oicon.classList.add("bg-Silver")
+      oicon.children[0].classList.remove("bg-Silver")
+      oicon.children[0].classList.add("bg-DarkNavy")
+      oicon.children[0].children[0].classList.remove("bg-DarkNavy")
+      oicon.children[0].children[0].classList.add("bg-Silver")
       currentchoice = "oicon"
     } else if (id == "ModeNormal") {
       ModeNormal.classList.add("bg-Silver")
@@ -471,5 +484,59 @@ NextRound.addEventListener("click", function () {
 
     }
   }
+})
+Quit.addEventListener("click", function(){
+  board = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]
+  NumOfOmoves = 0
+  NumOfXmoves = 0
+  number = 0
+  Xturn.classList.add("flex")
+  Xturn.classList.remove("hidden")
+  Oturn.classList.add("hidden")
+  Oturn.classList.remove("flex")
+  gamediv.classList.remove("pointer-events-none")
+  for (i = 0; i < 3; i++) {
+    for (a = 0; a < 3; a++) {
+      boardWithDivs[i][a].children[0].className = "hidden"
+      boardWithDivs[i][a].children[1].className = "hidden"
+      GameResult.classList.remove("flex")
+      GameResult.classList.add("hidden")
+
+
+    }
+  }
+  startmenu.classList.remove("hidden")
+  startmenu.classList.add("flex")
+  gamediv.classList.add("hidden")
+  gamediv.classList.remove("flex")
+  currentMode = ""
+  currentchoice = ""
+  ModeNormal.classList.remove("bg-Silver")
+  ModeNormal.classList.add("hover:bg-SemiDarkNavy")
+  document.getElementById("NormalText").classList.remove("text-DarkNavy")
+  document.getElementById("NormalText").classList.add("text-Silver")
+  ModeDifficult.classList.remove("bg-Silver")
+  ModeDifficult.classList.add("hover:bg-SemiDarkNavy")
+  document.getElementById("DifficultText").classList.remove("text-DarkNavy")
+  document.getElementById("DifficultText").classList.add("text-Silver")
+
+
+  xicon.classList.remove("bg-Silver")
+  xicon.classList.add("hover:bg-SemiDarkNavy")
+  document.getElementById("partX1").classList.remove("bg-DarkNavy")
+  document.getElementById("partX1").classList.add("bg-Silver")
+  document.getElementById("partX2").classList.remove("bg-DarkNavy")
+  document.getElementById("partX2").classList.add("bg-Silver")
+
+  oicon.classList.add("hover:bg-SemiDarkNavy")
+  oicon.classList.remove("bg-Silver")
+  oicon.children[0].classList.add("bg-Silver")
+  oicon.children[0].classList.remove("bg-DarkNavy")
+  oicon.children[0].children[0].classList.add("bg-DarkNavy")
+  oicon.children[0].children[0].classList.remove("bg-Silver")
 })
 
