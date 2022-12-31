@@ -130,7 +130,7 @@ Allsquare.addEventListener('mouseout', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
     // Hide the third child
-    if(currentchoice == "x"){
+    if(currentchoice == "X"){
       event.target.children[2].style.display = "none";
     }else if(currentchoice == "O"){
       event.target.children[3].style.display = "none";
