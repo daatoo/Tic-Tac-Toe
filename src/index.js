@@ -28,6 +28,7 @@ let ModeNormal = document.getElementById("ModeNormal")
 let ModeDifficult = document.getElementById("ModeDifficult")
 let currentMode
 let UltimateMode
+let ModeForgamediv = document.getElementById("ModeForgamediv")
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
@@ -614,7 +615,11 @@ Btn1.addEventListener("click", function () {
     WhichIsPc.innerText = "O (CPU)"
     Xturn.classList.remove("hidden")
     Xturn.classList.add("flex")
-
+    if(currentMode == "Normal"){
+      ModeForgamediv.innerText = "Mode: Normal"
+    }else if(currentMode == "Difficult"){
+      ModeForgamediv.innerText = "Mode: Difficult"
+    }
 
 
 
@@ -627,6 +632,11 @@ Btn1.addEventListener("click", function () {
     gamediv.classList.add("flex")
     Xturn.classList.remove("hidden")
     Xturn.classList.add("flex")
+    if(currentMode == "Normal"){
+      ModeForgamediv.innerText = "Mode: Normal"
+    }else if(currentMode == "Difficult"){
+      ModeForgamediv.innerText = "Mode: Difficult"
+    }
     play()
 
   }

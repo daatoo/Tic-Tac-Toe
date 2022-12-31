@@ -878,6 +878,11 @@ video {
   font-size: 40px;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -904,6 +909,10 @@ video {
 
 .leading-\[50px\] {
   line-height: 50px;
+}
+
+.leading-6 {
+  line-height: 1.5rem;
 }
 
 .tracking-\[1px\] {
