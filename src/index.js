@@ -171,6 +171,7 @@ NextRound.addEventListener("click", function () {
   Xturn.classList.remove("hidden")
   Oturn.classList.add("hidden")
   Oturn.classList.remove("flex")
+
   gamediv.classList.remove("pointer-events-none")
   if (currentchoice == "O") {
     play()
@@ -321,10 +322,10 @@ const play = () => {
         makeMove(move.row, move.col);
         boardWithDivs[move.row][move.col].children[0].className = "flex"
         NumOfOmoves++
-        Xturn.classList.add("flex")
-        Xturn.classList.remove("hidden")
-        Oturn.classList.add("hidden")
-        Oturn.classList.remove("flex")
+        Xturn.classList.remove("flex")
+        Xturn.classList.add("hidden")
+        Oturn.classList.remove("hidden")
+        Oturn.classList.add("flex")
         if (checkWin()) {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
@@ -543,7 +544,7 @@ const getBestMove = () => {
       if (board[2][1] === 0) {
         return { row: 2, col: 1 };
       }
-    }else if(Math.random() < 0.5){
+    } else if (Math.random() < 0.5) {
       if (board[1][2] === 0) {
         return { row: 1, col: 2 };
       }
@@ -556,7 +557,7 @@ const getBestMove = () => {
       if (board[1][0] === 0) {
         return { row: 1, col: 0 };
       }
-    }else if(Math.random() < 0.75){
+    } else if (Math.random() < 0.75) {
       if (board[2][1] === 0) {
         return { row: 2, col: 1 };
       }
@@ -569,7 +570,7 @@ const getBestMove = () => {
       if (board[1][2] === 0) {
         return { row: 1, col: 2 };
       }
-    }else{
+    } else {
       if (board[1][0] === 0) {
         return { row: 1, col: 0 };
       }
@@ -664,10 +665,10 @@ Allsquare.addEventListener('click', function (event) {
             }
             number++
             boardWithDivs[ii][jj].children[1].className = "flex"
-            Xturn.classList.add("hidden")
-            Xturn.classList.remove("flex")
-            Oturn.classList.add("flex")
-            Oturn.classList.remove("hidden")
+            Xturn.classList.remove("hidden")
+            Xturn.classList.add("flex")
+            Oturn.classList.remove("flex")
+            Oturn.classList.add("hidden")
             roww = ii;
             coll = jj;
             NumOfXmoves++
