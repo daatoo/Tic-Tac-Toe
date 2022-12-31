@@ -102,7 +102,6 @@ document.querySelectorAll('button').forEach(occurence => {
     }
   });
 });
-
 // add hover effects on board
 Allsquare.addEventListener('mouseover', function (event) {
   // Check if the event target is a square element
@@ -122,7 +121,6 @@ Allsquare.addEventListener('mouseover', function (event) {
     }
   }
 });
-
 Allsquare.addEventListener('mouseout', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
@@ -130,13 +128,10 @@ Allsquare.addEventListener('mouseout', function (event) {
     event.target.children[2].style.display = "none";
   }
 });
-
 // start code for game
 const BOARD_SIZE = 3;
-
 const X = 'X';
 const O = 'O';
-
 let roww;
 let coll;
 let FirstMove = []
@@ -290,32 +285,28 @@ const play = () => {
     }
   } else if (currentchoice == "O") {
 
-
-    if (NumOfXmoves > 0) {
-      let row = roww
-      let col = coll
-      makeMove(row, col);
-    }
-    if (checkWin()) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (NumOfXmoves > 0) {
+        let row = roww
+        let col = coll
+        makeMove(row, col);
+      }
+      if (checkWin()) {
         GameResult.classList.remove("hidden")
         GameResult.classList.add("flex")
-        ResultX.className = "flex"
-        ResultO.className = "hidden"
-        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+        ResultX.className = "hidden"
+        ResultO.className = "flex"
+        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
         TakesRound.innerText = "TAKES THE ROUND"
         GameResult.children[0].classList.remove("hidden")
-        GameResult.children[0].innerText = "YOU WON!"
+        GameResult.children[0].innerText = "OH NO, YOU LOST…"
         gamediv.classList.add("pointer-events-none")
-        Xscore.innerText++
-      }, 400);
-    }
-    else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
-      console.log(board)
-      // Computer's turn
-      let move = getBestMove();
-      makeMove(move.row, move.col);
-      setTimeout(() => {
+        Oscore.innerText++
+      } else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
+        console.log(board)
+        // Computer's turn
+        let move = getBestMove();
+        makeMove(move.row, move.col);
         boardWithDivs[move.row][move.col].children[0].className = "flex"
         NumOfOmoves++
         Xturn.classList.add("flex")
@@ -324,41 +315,35 @@ const play = () => {
         Oturn.classList.remove("flex")
         console.log(NumOfOmoves)
         console.log(NumOfXmoves)
-      }, 400)
-
-      if (checkWin()) {
-        setTimeout(() => {
+        if (checkWin()) {
+          GameResult.classList.remove("hidden")
+          GameResult.classList.add("flex")
+          ResultX.className = "flex"
+          ResultO.className = "hidden"
+          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+          TakesRound.innerText = "TAKES THE ROUND"
+          GameResult.children[0].classList.remove("hidden")
+          GameResult.children[0].innerText = "YOU WON!"
+          gamediv.classList.add("pointer-events-none")
+          Xscore.innerText++
+        } else if (!board[0].includes(0) && !board[1].includes(0) && !board[2].includes(0)) {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
           ResultX.className = "hidden"
-          ResultO.className = "flex"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
-          TakesRound.innerText = "TAKES THE ROUND"
-          GameResult.children[0].classList.remove("hidden")
-          GameResult.children[0].innerText = "OH NO, YOU LOST…"
+          ResultO.className = "hidden"
+          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+          TakesRound.innerText = "ROUND TIED"
           gamediv.classList.add("pointer-events-none")
-          Oscore.innerText++
-        }, 400);
+          GameResult.children[0].classList.add("hidden")
+          TieScore.innerText++
+        }
       }
-
-    } else {
-      setTimeout(() => {
-        GameResult.classList.remove("hidden")
-        GameResult.classList.add("flex")
-        ResultX.className = "hidden"
-        ResultO.className = "hidden"
-        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
-        TakesRound.innerText = "ROUND TIED"
-        gamediv.classList.add("pointer-events-none")
-        GameResult.children[0].classList.add("hidden")
-        TieScore.innerText++
-      }, 400);
-    }
-
+    }, 400)
   }
-
-
 }
+
+
+
 // find which move player made
 const makeMove = (row, col) => {
   if (board[row][col] !== 0) {
@@ -566,7 +551,7 @@ const getBestMove = () => {
 // start game by clicking btn1
 Btn1.addEventListener("click", function () {
 
-  if ((currentchoice == "X" || currentchoice == "O") && (currentMode == "Difficult" || currentMode == "Normal")) {
+  if ((currentchoice == "X") && (currentMode == "Difficult" || currentMode == "Normal")) {
     startmenu.classList.add("hidden")
     startmenu.classList.remove("flex")
     gamediv.classList.remove("hidden")
@@ -577,14 +562,19 @@ Btn1.addEventListener("click", function () {
     Xturn.classList.add("flex")
 
 
-    if (currentchoice == "O") {
-      console.log("yees")
-      play()
-    }
 
-  } else if (currentchoice == "oicon") {
-    WhichIsPc.innerHTML = "X (CPU)"
-    WhoAreYou.innerHTML = "O (YOU)"
+
+  } else if (currentchoice == "O" && (currentMode == "Difficult" || currentMode == "Normal")) {
+    WhichIsPc.innerHTML = "O (YOU)"
+    WhoAreYou.innerHTML = "X (CPU)"
+    startmenu.classList.add("hidden")
+    startmenu.classList.remove("flex")
+    gamediv.classList.remove("hidden")
+    gamediv.classList.add("flex")
+    Xturn.classList.remove("hidden")
+    Xturn.classList.add("flex")
+    play()
+
   }
 
 })
