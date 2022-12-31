@@ -106,33 +106,33 @@ document.querySelectorAll('button').forEach(occurence => {
 Allsquare.addEventListener('mouseover', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
-      // Get the children of the square element
-      let img0 = event.target.children[0];
-      let img1 = event.target.children[1];
+    // Get the children of the square element
+    let img0 = event.target.children[0];
+    let img1 = event.target.children[1];
 
-      // Get the computed styles of the children
-      var style1 = window.getComputedStyle(img0);
-      var style2 = window.getComputedStyle(img1);
+    // Get the computed styles of the children
+    var style1 = window.getComputedStyle(img0);
+    var style2 = window.getComputedStyle(img1);
 
-      // Check if both children are hidden
-      if (style1.display === "none" && style2.display === "none") {
-        // Show the third child
-        if(currentchoice == "X"){
-          event.target.children[2].style.display = "flex";
-        }else if(currentchoice == "O"){
-          event.target.children[3].style.display = "flex";
-        }
+    // Check if both children are hidden
+    if (style1.display === "none" && style2.display === "none") {
+      // Show the third child
+      if (currentchoice == "X") {
+        event.target.children[2].style.display = "flex";
+      } else if (currentchoice == "O") {
+        event.target.children[3].style.display = "flex";
       }
-    
+    }
+
   }
 });
 Allsquare.addEventListener('mouseout', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
     // Hide the third child
-    if(currentchoice == "X"){
+    if (currentchoice == "X") {
       event.target.children[2].style.display = "none";
-    }else if(currentchoice == "O"){
+    } else if (currentchoice == "O") {
       event.target.children[3].style.display = "none";
 
     }
@@ -528,6 +528,61 @@ const getBestMove = () => {
       return null;
     }
   } else if (currentMode == "Normal") {
+    if (Math.random() < 0.25) {
+
+      // Find an empty side
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+    }else if(Math.random() < 0.5){
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+    }else if(Math.random() < 0.75){
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+    }else{
+      if (board[1][0] === 0) {
+        return { row: 1, col: 0 };
+      }
+      if (board[1][2] === 0) {
+        return { row: 1, col: 2 };
+      }
+      if (board[2][1] === 0) {
+        return { row: 2, col: 1 };
+      }
+      if (board[0][1] === 0) {
+        return { row: 0, col: 1 };
+      }
+    }
     // Find an empty corner
     if (board[0][0] === 0) {
       return { row: 0, col: 0 };
@@ -541,19 +596,7 @@ const getBestMove = () => {
     if (board[2][2] === 0) {
       return { row: 2, col: 2 };
     }
-    // Find an empty side
-    if (board[0][1] === 0) {
-      return { row: 0, col: 1 };
-    }
-    if (board[1][0] === 0) {
-      return { row: 1, col: 0 };
-    }
-    if (board[1][2] === 0) {
-      return { row: 1, col: 2 };
-    }
-    if (board[2][1] === 0) {
-      return { row: 2, col: 1 };
-    }
+
     return null;
   }
 
