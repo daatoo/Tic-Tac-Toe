@@ -106,26 +106,36 @@ document.querySelectorAll('button').forEach(occurence => {
 Allsquare.addEventListener('mouseover', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
-    // Get the children of the square element
-    let img0 = event.target.children[0];
-    let img1 = event.target.children[1];
+      // Get the children of the square element
+      let img0 = event.target.children[0];
+      let img1 = event.target.children[1];
 
-    // Get the computed styles of the children
-    var style1 = window.getComputedStyle(img0);
-    var style2 = window.getComputedStyle(img1);
+      // Get the computed styles of the children
+      var style1 = window.getComputedStyle(img0);
+      var style2 = window.getComputedStyle(img1);
 
-    // Check if both children are hidden
-    if (style1.display === "none" && style2.display === "none") {
-      // Show the third child
-      event.target.children[2].style.display = "flex";
-    }
+      // Check if both children are hidden
+      if (style1.display === "none" && style2.display === "none") {
+        // Show the third child
+        if(currentchoice == "X"){
+          event.target.children[2].style.display = "flex";
+        }else if(currentchoice == "O"){
+          event.target.children[3].style.display = "flex";
+        }
+      }
+    
   }
 });
 Allsquare.addEventListener('mouseout', function (event) {
   // Check if the event target is a square element
   if (event.target.matches(".square")) {
     // Hide the third child
-    event.target.children[2].style.display = "none";
+    if(currentchoice == "x"){
+      event.target.children[2].style.display = "none";
+    }else if(currentchoice == "O"){
+      event.target.children[3].style.display = "none";
+
+    }
   }
 });
 // start code for game
@@ -176,6 +186,9 @@ Quit.addEventListener("click", function () {
   NumOfOmoves = 0
   NumOfXmoves = 0
   number = 0
+  Xscore.innerText = 0
+  Oscore.innerText = 0
+  TieScore.innerText = 0
   Xturn.classList.add("flex")
   Xturn.classList.remove("hidden")
   Oturn.classList.add("hidden")
@@ -303,7 +316,6 @@ const play = () => {
         gamediv.classList.add("pointer-events-none")
         Oscore.innerText++
       } else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
-        console.log(board)
         // Computer's turn
         let move = getBestMove();
         makeMove(move.row, move.col);
@@ -313,8 +325,6 @@ const play = () => {
         Xturn.classList.remove("hidden")
         Oturn.classList.add("hidden")
         Oturn.classList.remove("flex")
-        console.log(NumOfOmoves)
-        console.log(NumOfXmoves)
         if (checkWin()) {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
