@@ -60,7 +60,7 @@ document.querySelectorAll('button').forEach(occurence => {
       oicon.children[0].classList.remove("bg-DarkNavy")
       oicon.children[0].children[0].classList.add("bg-DarkNavy")
       oicon.children[0].children[0].classList.remove("bg-Silver")
-      currentchoice = "xicon"
+      currentchoice = "X"
     } else if (id == "oicon") {
       xicon.classList.remove("bg-Silver")
       xicon.classList.add("hover:bg-SemiDarkNavy")
@@ -75,7 +75,7 @@ document.querySelectorAll('button').forEach(occurence => {
       oicon.children[0].classList.add("bg-DarkNavy")
       oicon.children[0].children[0].classList.remove("bg-DarkNavy")
       oicon.children[0].children[0].classList.add("bg-Silver")
-      currentchoice = "oicon"
+      currentchoice = "O"
     } else if (id == "ModeNormal") {
       ModeNormal.classList.add("bg-Silver")
       ModeNormal.classList.remove("hover:bg-SemiDarkNavy")
@@ -101,9 +101,382 @@ document.querySelectorAll('button').forEach(occurence => {
     }
   });
 });
+const BOARD_SIZE = 3;
+
+const X = 'X';
+const O = 'O';
+
+let roww;
+let coll;
+let FirstMove = []
+
+let currentPlayer = X;
+const getNextPlayer = (currentPlayer) => {
+  return currentPlayer === X ? O : X;
+}
+NextRound.addEventListener("click", function () {
+  for (i = 0; i < 3; i++) {
+    for (a = 0; a < 3; a++) {
+      boardWithDivs[i][a].children[0].className = "hidden"
+      boardWithDivs[i][a].children[1].className = "hidden"
+      GameResult.classList.remove("flex")
+      GameResult.classList.add("hidden")
+    }
+  }
+  board = [      [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]
+  NumOfOmoves = 0
+  NumOfXmoves = 0
+  number = 0
+  Xturn.classList.add("flex")
+  Xturn.classList.remove("hidden")
+  Oturn.classList.add("hidden")
+  Oturn.classList.remove("flex")
+  gamediv.classList.remove("pointer-events-none")
+  if(currentchoice == "O"){
+    play()
+  }
+});
+const play = () => {
+
+if (currentchoice == "X") {
+  // Player's turn
+  let row = roww
+  let col = coll
+  makeMove(row, col);
+  if (checkWin()) {
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "flex"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+      TakesRound.innerText = "TAKES THE ROUND"
+      GameResult.children[0].classList.remove("hidden")
+      GameResult.children[0].innerText = "YOU WON!"
+      gamediv.classList.add("pointer-events-none")
+      Xscore.innerText++
+    }, 400);
+  }
+  else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
+    // Computer's turn
+    let move = getBestMove();
+    makeMove(move.row, move.col);
+    setTimeout(() => {
+      boardWithDivs[move.row][move.col].children[1].className = "flex"
+      NumOfOmoves++
+      Xturn.classList.add("flex")
+      Xturn.classList.remove("hidden")
+      Oturn.classList.add("hidden")
+      Oturn.classList.remove("flex")
+    }, 400)
+
+    if (checkWin()) {
+      setTimeout(() => {
+        GameResult.classList.remove("hidden")
+        GameResult.classList.add("flex")
+        ResultX.className = "hidden"
+        ResultO.className = "flex"
+        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+        TakesRound.innerText = "TAKES THE ROUND"
+        GameResult.children[0].classList.remove("hidden")
+        GameResult.children[0].innerText = "OH NO, YOU LOST…"
+        gamediv.classList.add("pointer-events-none")
+        Oscore.innerText++
+      }, 400);
+    }
+  } else {
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "hidden"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+      TakesRound.innerText = "ROUND TIED"
+      gamediv.classList.add("pointer-events-none")
+      GameResult.children[0].classList.add("hidden")
+      TieScore.innerText++
+    }, 400);
+  }
+} else if (currentchoice == "O") {
+
+
+  if (NumOfXmoves > 0) {
+    let row = roww
+    let col = coll
+    makeMove(row, col);
+  }
+  if (checkWin()) {
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "flex"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+      TakesRound.innerText = "TAKES THE ROUND"
+      GameResult.children[0].classList.remove("hidden")
+      GameResult.children[0].innerText = "YOU WON!"
+      gamediv.classList.add("pointer-events-none")
+      Xscore.innerText++
+    }, 400);
+  }
+  else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
+    console.log(board)
+    // Computer's turn
+    let move = getBestMove();
+    makeMove(move.row, move.col);
+    setTimeout(() => {
+      boardWithDivs[move.row][move.col].children[0].className = "flex"
+      NumOfOmoves++
+      Xturn.classList.add("flex")
+      Xturn.classList.remove("hidden")
+      Oturn.classList.add("hidden")
+      Oturn.classList.remove("flex")
+      console.log(NumOfOmoves)
+      console.log(NumOfXmoves)
+    }, 400)
+
+    if (checkWin()) {
+      setTimeout(() => {
+        GameResult.classList.remove("hidden")
+        GameResult.classList.add("flex")
+        ResultX.className = "hidden"
+        ResultO.className = "flex"
+        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+        TakesRound.innerText = "TAKES THE ROUND"
+        GameResult.children[0].classList.remove("hidden")
+        GameResult.children[0].innerText = "OH NO, YOU LOST…"
+        gamediv.classList.add("pointer-events-none")
+        Oscore.innerText++
+      }, 400);
+    }
+
+  } else {
+    setTimeout(() => {
+      GameResult.classList.remove("hidden")
+      GameResult.classList.add("flex")
+      ResultX.className = "hidden"
+      ResultO.className = "hidden"
+      TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+      TakesRound.innerText = "ROUND TIED"
+      gamediv.classList.add("pointer-events-none")
+      GameResult.children[0].classList.add("hidden")
+      TieScore.innerText++
+    }, 400);
+  }
+
+}
+
+
+}
+const makeMove = (row, col) => {
+if (board[row][col] !== 0) {
+  return;
+}
+board[row][col] = currentPlayer;
+currentPlayer = getNextPlayer(currentPlayer);
+}
+
+const checkWin = () => {
+// Check rows
+for (let row = 0; row < BOARD_SIZE; row++) {
+  if (board[row][0] !== 0 && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
+    return true;
+  }
+}
+// Check columns
+for (let col = 0; col < BOARD_SIZE; col++) {
+  if (board[0][col] !== 0 && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
+    return true;
+  }
+}
+// Check diagonals
+if (board[0][0] !== 0 && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+  return true;
+}
+if (board[0][2] !== 0 && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+  return true;
+}
+return false;
+}
+
+const getBestMove = () => {
+// Check if we can win in the next move
+for (let row = 0; row < BOARD_SIZE; row++) {
+  for (let col = 0; col < BOARD_SIZE; col++) {
+    if (board[row][col] === 0) {
+      board[row][col] = O;
+      if (checkWin()) {
+        board[row][col] = 0;
+        return { row, col };
+      }
+      board[row][col] = 0;
+    }
+  }
+}
+// Check if the player can win in the next move, and block them
+for (let row = 0; row < BOARD_SIZE; row++) {
+  for (let col = 0; col < BOARD_SIZE; col++) {
+    if (board[row][col] === 0) {
+      board[row][col] = X;
+      if (checkWin()) {
+        board[row][col] = 0;
+        return { row, col };
+      }
+      board[row][col] = 0;
+    }
+  }
+}
+if (currentMode == "Difficult") {
+  if (FirstMove[0] == 1 && FirstMove[1] == 1) {
+    // Find an empty corner
+    if (board[0][0] === 0) {
+      return { row: 0, col: 0 };
+    }
+    if (board[0][2] === 0) {
+      return { row: 0, col: 2 };
+    }
+    if (board[2][0] === 0) {
+      return { row: 2, col: 0 };
+    }
+    if (board[2][2] === 0) {
+      return { row: 2, col: 2 };
+    }
+    // Find an empty side
+    if (board[0][1] === 0) {
+      return { row: 0, col: 1 };
+    }
+    if (board[1][0] === 0) {
+      return { row: 1, col: 0 };
+    }
+    if (board[1][2] === 0) {
+      return { row: 1, col: 2 };
+    }
+    if (board[2][1] === 0) {
+      return { row: 2, col: 1 };
+    }
+    return null;
+
+  } else if ((FirstMove[0] == 0 && FirstMove[1] == 0) ||
+    (FirstMove[0] == 2 && FirstMove[1] == 0) ||
+    (FirstMove[0] == 0 && FirstMove[1] == 2) ||
+    (FirstMove[0] == 2 && FirstMove[1] == 2)) {
+    if (board[1][1] === 0) {
+      return { row: 1, col: 1 };
+    }
+    // Find an empty side
+    if (board[0][1] === 0) {
+      return { row: 0, col: 1 };
+    }
+    if (board[1][0] === 0) {
+      return { row: 1, col: 0 };
+    }
+    if (board[1][2] === 0) {
+      return { row: 1, col: 2 };
+    }
+    if (board[2][1] === 0) {
+      return { row: 2, col: 1 };
+    }
+    // Find an empty corner
+    if (board[0][0] === 0) {
+      return { row: 0, col: 0 };
+    }
+    if (board[0][2] === 0) {
+      return { row: 0, col: 2 };
+    }
+    if (board[2][0] === 0) {
+      return { row: 2, col: 0 };
+    }
+    if (board[2][2] === 0) {
+      return { row: 2, col: 2 };
+    }
+    return null;
+  } else if (FirstMove[0] == 1 && FirstMove[1] == 2) {
+    if (board[1][1] === 0) {
+      return { row: 1, col: 1 };
+    }
+    if (board[0][2] === 0) {
+      return { row: 0, col: 2 };
+    }
+    if (board[2][0] === 0) {
+      return { row: 2, col: 0 };
+    }
+    if (board[0][0] === 0) {
+      return { row: 0, col: 0 };
+    }
+    if (board[2][2] === 0) {
+      return { row: 2, col: 2 };
+    }
+  }
+  else {
+    if (board[1][1] === 0) {
+      return { row: 1, col: 1 };
+    }
+    // Find an empty corner
+    if (board[0][0] === 0) {
+      return { row: 0, col: 0 };
+    }
+    if (board[0][2] === 0) {
+      return { row: 0, col: 2 };
+    }
+    if (board[2][0] === 0) {
+      return { row: 2, col: 0 };
+    }
+    if (board[2][2] === 0) {
+      return { row: 2, col: 2 };
+    }
+    // Find an empty side
+    if (board[0][1] === 0) {
+      return { row: 0, col: 1 };
+    }
+    if (board[1][0] === 0) {
+      return { row: 1, col: 0 };
+    }
+    if (board[1][2] === 0) {
+      return { row: 1, col: 2 };
+    }
+    if (board[2][1] === 0) {
+      return { row: 2, col: 1 };
+    }
+
+    return null;
+  }
+} else if (currentMode == "Normal") {
+  // Find an empty corner
+  if (board[0][0] === 0) {
+    return { row: 0, col: 0 };
+  }
+  if (board[0][2] === 0) {
+    return { row: 0, col: 2 };
+  }
+  if (board[2][0] === 0) {
+    return { row: 2, col: 0 };
+  }
+  if (board[2][2] === 0) {
+    return { row: 2, col: 2 };
+  }
+  // Find an empty side
+  if (board[0][1] === 0) {
+    return { row: 0, col: 1 };
+  }
+  if (board[1][0] === 0) {
+    return { row: 1, col: 0 };
+  }
+  if (board[1][2] === 0) {
+    return { row: 1, col: 2 };
+  }
+  if (board[2][1] === 0) {
+    return { row: 2, col: 1 };
+  }
+  return null;
+}
+
+}
 Btn1.addEventListener("click", function () {
 
-  if (currentchoice == "xicon" && (currentMode == "Difficult" || currentMode == "Normal")) {
+  if ((currentchoice == "X" || currentchoice == "O") && (currentMode == "Difficult" || currentMode == "Normal")) {
     startmenu.classList.add("hidden")
     startmenu.classList.remove("flex")
     gamediv.classList.remove("hidden")
@@ -113,51 +486,7 @@ Btn1.addEventListener("click", function () {
     Xturn.classList.remove("hidden")
     Xturn.classList.add("flex")
 
-    const BOARD_SIZE = 3;
 
-    const X = 'X';
-    const O = 'O';
-
-
-
-    let currentPlayer = X;
-
-    const getNextPlayer = (currentPlayer) => {
-      return currentPlayer === X ? O : X;
-    }
-
-    let roww;
-    let coll;
-    let FirstMove = []
-    // Check which was clicked
-    Allsquare.addEventListener('click', function (event) {
-      const clickedElement = event.target;
-      if (clickedElement.matches('.square')) {
-        // Get the row and column of the clicked square
-        for (let ii = 0; ii < 3; ii++) {
-          for (let jj = 0; jj < 3; jj++) {
-            if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves == NumOfXmoves) {
-              if (number == 0) {
-                FirstMove[0] = ii
-                FirstMove[1] = jj
-              }
-              number++
-              boardWithDivs[ii][jj].children[0].className = "flex"
-              Xturn.classList.add("hidden")
-              Xturn.classList.remove("flex")
-              Oturn.classList.add("flex")
-              Oturn.classList.remove("hidden")
-              roww = ii;
-              coll = jj;
-              NumOfXmoves++
-              play()
-
-            }
-          }
-        }
-        // play()
-      }
-    });
     Allsquare.addEventListener('mouseover', function (event) {
       // Check if the event target is a square element
       if (event.target.matches(".square")) {
@@ -185,272 +514,118 @@ Btn1.addEventListener("click", function () {
       }
     });
 
-    const makeMove = (row, col) => {
-      if (board[row][col] !== 0) {
-        return;
-      }
-      board[row][col] = currentPlayer;
-      currentPlayer = getNextPlayer(currentPlayer);
-    }
 
-    const checkWin = () => {
-      // Check rows
-      for (let row = 0; row < BOARD_SIZE; row++) {
-        if (board[row][0] !== 0 && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
-          return true;
-        }
-      }
-      // Check columns
-      for (let col = 0; col < BOARD_SIZE; col++) {
-        if (board[0][col] !== 0 && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
-          return true;
-        }
-      }
-      // Check diagonals
-      if (board[0][0] !== 0 && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
-        return true;
-      }
-      if (board[0][2] !== 0 && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
-        return true;
-      }
-      return false;
-    }
 
-    const getBestMove = () => {
-      // Check if we can win in the next move
-      for (let row = 0; row < BOARD_SIZE; row++) {
-        for (let col = 0; col < BOARD_SIZE; col++) {
-          if (board[row][col] === 0) {
-            board[row][col] = O;
-            if (checkWin()) {
-              board[row][col] = 0;
-              return { row, col };
+    if (currentchoice == "O") {
+      console.log("yees")
+      play()
+    }
+    // Check which was clicked
+    Allsquare.addEventListener('click', function (event) {
+      const clickedElement = event.target;
+      if (clickedElement.matches('.square')) {
+        // Get the row and column of the clicked square
+        for (let ii = 0; ii < 3; ii++) {
+          for (let jj = 0; jj < 3; jj++) {
+            if (currentchoice == "X") {
+              if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves == NumOfXmoves) {
+                if (number == 0) {
+                  FirstMove[0] = ii
+                  FirstMove[1] = jj
+                }
+                number++
+                boardWithDivs[ii][jj].children[0].className = "flex"
+                Xturn.classList.add("hidden")
+                Xturn.classList.remove("flex")
+                Oturn.classList.add("flex")
+                Oturn.classList.remove("hidden")
+                roww = ii;
+                coll = jj;
+                NumOfXmoves++
+                play()
+
+              }
+            } else if (currentchoice == "O") {
+              if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves - 1 == NumOfXmoves) {
+                if (number == 0) {
+                  FirstMove[0] = ii
+                  FirstMove[1] = jj
+                }
+                number++
+                boardWithDivs[ii][jj].children[1].className = "flex"
+                Xturn.classList.add("hidden")
+                Xturn.classList.remove("flex")
+                Oturn.classList.add("flex")
+                Oturn.classList.remove("hidden")
+                roww = ii;
+                coll = jj;
+                NumOfXmoves++
+                play()
+
+              }
             }
-            board[row][col] = 0;
           }
         }
-      }
-      // Check if the player can win in the next move, and block them
-      for (let row = 0; row < BOARD_SIZE; row++) {
-        for (let col = 0; col < BOARD_SIZE; col++) {
-          if (board[row][col] === 0) {
-            board[row][col] = X;
-            if (checkWin()) {
-              board[row][col] = 0;
-              return { row, col };
-            }
-            board[row][col] = 0;
-          }
-        }
-      }
-      if (currentMode == "Difficult") {
-        if (FirstMove[0] == 1 && FirstMove[1] == 1) {
-          // Find an empty corner
-          if (board[0][0] === 0) {
-            return { row: 0, col: 0 };
-          }
-          if (board[0][2] === 0) {
-            return { row: 0, col: 2 };
-          }
-          if (board[2][0] === 0) {
-            return { row: 2, col: 0 };
-          }
-          if (board[2][2] === 0) {
-            return { row: 2, col: 2 };
-          }
-          // Find an empty side
-          if (board[0][1] === 0) {
-            return { row: 0, col: 1 };
-          }
-          if (board[1][0] === 0) {
-            return { row: 1, col: 0 };
-          }
-          if (board[1][2] === 0) {
-            return { row: 1, col: 2 };
-          }
-          if (board[2][1] === 0) {
-            return { row: 2, col: 1 };
-          }
-          return null;
-
-        } else if ((FirstMove[0] == 0 && FirstMove[1] == 0) ||
-          (FirstMove[0] == 2 && FirstMove[1] == 0) ||
-          (FirstMove[0] == 0 && FirstMove[1] == 2) ||
-          (FirstMove[0] == 2 && FirstMove[1] == 2)) {
-          if (board[1][1] === 0) {
-            return { row: 1, col: 1 };
-          }
-          // Find an empty side
-          if (board[0][1] === 0) {
-            return { row: 0, col: 1 };
-          }
-          if (board[1][0] === 0) {
-            return { row: 1, col: 0 };
-          }
-          if (board[1][2] === 0) {
-            return { row: 1, col: 2 };
-          }
-          if (board[2][1] === 0) {
-            return { row: 2, col: 1 };
-          }
-          // Find an empty corner
-          if (board[0][0] === 0) {
-            return { row: 0, col: 0 };
-          }
-          if (board[0][2] === 0) {
-            return { row: 0, col: 2 };
-          }
-          if (board[2][0] === 0) {
-            return { row: 2, col: 0 };
-          }
-          if (board[2][2] === 0) {
-            return { row: 2, col: 2 };
-          }
-          return null;
-        } else if (FirstMove[0] == 1 && FirstMove[1] == 2) {
-          if (board[1][1] === 0) {
-            return { row: 1, col: 1 };
-          }
-          if (board[0][2] === 0) {
-            return { row: 0, col: 2 };
-          }
-          if (board[2][0] === 0) {
-            return { row: 2, col: 0 };
-          }
-          if (board[0][0] === 0) {
-            return { row: 0, col: 0 };
-          }
-          if (board[2][2] === 0) {
-            return { row: 2, col: 2 };
-          }
-        }
-        else {
-          if (board[1][1] === 0) {
-            return { row: 1, col: 1 };
-          }
-          // Find an empty corner
-          if (board[0][0] === 0) {
-            return { row: 0, col: 0 };
-          }
-          if (board[0][2] === 0) {
-            return { row: 0, col: 2 };
-          }
-          if (board[2][0] === 0) {
-            return { row: 2, col: 0 };
-          }
-          if (board[2][2] === 0) {
-            return { row: 2, col: 2 };
-          }
-          // Find an empty side
-          if (board[0][1] === 0) {
-            return { row: 0, col: 1 };
-          }
-          if (board[1][0] === 0) {
-            return { row: 1, col: 0 };
-          }
-          if (board[1][2] === 0) {
-            return { row: 1, col: 2 };
-          }
-          if (board[2][1] === 0) {
-            return { row: 2, col: 1 };
-          }
-
-          return null;
-        }
-      } else if (currentMode == "Normal") {
-        // Find an empty corner
-        if (board[0][0] === 0) {
-          return { row: 0, col: 0 };
-        }
-        if (board[0][2] === 0) {
-          return { row: 0, col: 2 };
-        }
-        if (board[2][0] === 0) {
-          return { row: 2, col: 0 };
-        }
-        if (board[2][2] === 0) {
-          return { row: 2, col: 2 };
-        }
-        // Find an empty side
-        if (board[0][1] === 0) {
-          return { row: 0, col: 1 };
-        }
-        if (board[1][0] === 0) {
-          return { row: 1, col: 0 };
-        }
-        if (board[1][2] === 0) {
-          return { row: 1, col: 2 };
-        }
-        if (board[2][1] === 0) {
-          return { row: 2, col: 1 };
-        }
-        return null;
+        // play()
       }
 
-    }
+      
 
-    const play = () => {
+      Quit.addEventListener("click", function () {
+        board = [
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0]
+        ]
+        NumOfOmoves = 0
+        NumOfXmoves = 0
+        number = 0
+        Xturn.classList.add("flex")
+        Xturn.classList.remove("hidden")
+        Oturn.classList.add("hidden")
+        Oturn.classList.remove("flex")
+        gamediv.classList.remove("pointer-events-none")
+        for (i = 0; i < 3; i++) {
+          for (a = 0; a < 3; a++) {
+            boardWithDivs[i][a].children[0].className = "hidden"
+            boardWithDivs[i][a].children[1].className = "hidden"
+            GameResult.classList.remove("flex")
+            GameResult.classList.add("hidden")
 
-      // Player's turn
-      let row = roww
-      let col = coll
-      makeMove(row, col);
-      if (checkWin()) {
-        setTimeout(() => {
-          GameResult.classList.remove("hidden")
-          GameResult.classList.add("flex")
-          ResultX.className = "flex"
-          ResultO.className = "hidden"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
-          TakesRound.innerText = "TAKES THE ROUND"
-          GameResult.children[0].classList.remove("hidden")
-          GameResult.children[0].innerText = "YOU WON!"
-          gamediv.classList.add("pointer-events-none")
-          Xscore.innerText++
-        }, 400);
-      }
-      else if (board[0].includes(0) || board[1].includes(0) || board[2].includes(0)) {
-        // Computer's turn
-        let move = getBestMove();
-        makeMove(move.row, move.col);
-        setTimeout(() => {
-          boardWithDivs[move.row][move.col].children[1].className = "flex"
-          NumOfOmoves++
-          Xturn.classList.add("flex")
-          Xturn.classList.remove("hidden")
-          Oturn.classList.add("hidden")
-          Oturn.classList.remove("flex")
-        }, 400)
 
-        if (checkWin()) {
-          setTimeout(() => {
-            GameResult.classList.remove("hidden")
-            GameResult.classList.add("flex")
-            ResultX.className = "hidden"
-            ResultO.className = "flex"
-            TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
-            TakesRound.innerText = "TAKES THE ROUND"
-            GameResult.children[0].classList.remove("hidden")
-            GameResult.children[0].innerText = "OH NO, YOU LOST…"
-            gamediv.classList.add("pointer-events-none")
-            Oscore.innerText++
-          }, 400);
+          }
         }
-      } else {
-        setTimeout(() => {
-          GameResult.classList.remove("hidden")
-          GameResult.classList.add("flex")
-          ResultX.className = "hidden"
-          ResultO.className = "hidden"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
-          TakesRound.innerText = "ROUND TIED"
-          gamediv.classList.add("pointer-events-none")
-          GameResult.children[0].classList.add("hidden")
-          TieScore.innerText++
-        }, 400);
-      }
+        startmenu.classList.remove("hidden")
+        startmenu.classList.add("flex")
+        gamediv.classList.add("hidden")
+        gamediv.classList.remove("flex")
+        currentMode = ""
+        currentchoice = ""
+        ModeNormal.classList.remove("bg-Silver")
+        ModeNormal.classList.add("hover:bg-SemiDarkNavy")
+        document.getElementById("NormalText").classList.remove("text-DarkNavy")
+        document.getElementById("NormalText").classList.add("text-Silver")
+        ModeDifficult.classList.remove("bg-Silver")
+        ModeDifficult.classList.add("hover:bg-SemiDarkNavy")
+        document.getElementById("DifficultText").classList.remove("text-DarkNavy")
+        document.getElementById("DifficultText").classList.add("text-Silver")
 
-    }
+
+        xicon.classList.remove("bg-Silver")
+        xicon.classList.add("hover:bg-SemiDarkNavy")
+        document.getElementById("partX1").classList.remove("bg-DarkNavy")
+        document.getElementById("partX1").classList.add("bg-Silver")
+        document.getElementById("partX2").classList.remove("bg-DarkNavy")
+        document.getElementById("partX2").classList.add("bg-Silver")
+
+        oicon.classList.add("hover:bg-SemiDarkNavy")
+        oicon.classList.remove("bg-Silver")
+        oicon.children[0].classList.add("bg-Silver")
+        oicon.children[0].classList.remove("bg-DarkNavy")
+        oicon.children[0].children[0].classList.add("bg-DarkNavy")
+        oicon.children[0].children[0].classList.remove("bg-Silver")
+      })
+    });
   } else if (currentchoice == "oicon") {
     WhichIsPc.innerHTML = "X (CPU)"
     WhoAreYou.innerHTML = "O (YOU)"
@@ -460,83 +635,4 @@ Btn1.addEventListener("click", function () {
 
 
 
-NextRound.addEventListener("click", function () {
-  board = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ]
-  NumOfOmoves = 0
-  NumOfXmoves = 0
-  number = 0
-  Xturn.classList.add("flex")
-  Xturn.classList.remove("hidden")
-  Oturn.classList.add("hidden")
-  Oturn.classList.remove("flex")
-  gamediv.classList.remove("pointer-events-none")
-  for (i = 0; i < 3; i++) {
-    for (a = 0; a < 3; a++) {
-      boardWithDivs[i][a].children[0].className = "hidden"
-      boardWithDivs[i][a].children[1].className = "hidden"
-      GameResult.classList.remove("flex")
-      GameResult.classList.add("hidden")
-
-
-    }
-  }
-})
-Quit.addEventListener("click", function(){
-  board = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ]
-  NumOfOmoves = 0
-  NumOfXmoves = 0
-  number = 0
-  Xturn.classList.add("flex")
-  Xturn.classList.remove("hidden")
-  Oturn.classList.add("hidden")
-  Oturn.classList.remove("flex")
-  gamediv.classList.remove("pointer-events-none")
-  for (i = 0; i < 3; i++) {
-    for (a = 0; a < 3; a++) {
-      boardWithDivs[i][a].children[0].className = "hidden"
-      boardWithDivs[i][a].children[1].className = "hidden"
-      GameResult.classList.remove("flex")
-      GameResult.classList.add("hidden")
-
-
-    }
-  }
-  startmenu.classList.remove("hidden")
-  startmenu.classList.add("flex")
-  gamediv.classList.add("hidden")
-  gamediv.classList.remove("flex")
-  currentMode = ""
-  currentchoice = ""
-  ModeNormal.classList.remove("bg-Silver")
-  ModeNormal.classList.add("hover:bg-SemiDarkNavy")
-  document.getElementById("NormalText").classList.remove("text-DarkNavy")
-  document.getElementById("NormalText").classList.add("text-Silver")
-  ModeDifficult.classList.remove("bg-Silver")
-  ModeDifficult.classList.add("hover:bg-SemiDarkNavy")
-  document.getElementById("DifficultText").classList.remove("text-DarkNavy")
-  document.getElementById("DifficultText").classList.add("text-Silver")
-
-
-  xicon.classList.remove("bg-Silver")
-  xicon.classList.add("hover:bg-SemiDarkNavy")
-  document.getElementById("partX1").classList.remove("bg-DarkNavy")
-  document.getElementById("partX1").classList.add("bg-Silver")
-  document.getElementById("partX2").classList.remove("bg-DarkNavy")
-  document.getElementById("partX2").classList.add("bg-Silver")
-
-  oicon.classList.add("hover:bg-SemiDarkNavy")
-  oicon.classList.remove("bg-Silver")
-  oicon.children[0].classList.add("bg-Silver")
-  oicon.children[0].classList.remove("bg-DarkNavy")
-  oicon.children[0].children[0].classList.add("bg-DarkNavy")
-  oicon.children[0].children[0].classList.remove("bg-Silver")
-})
 
