@@ -188,6 +188,7 @@ Quit.addEventListener("click", function () {
     [0, 0, 0]
   ]
   TwoPlayerMode = false
+  currentPlayer = "X"
   NumOfOmoves = 0
   NumOfXmoves = 0
   number = 0
@@ -205,8 +206,6 @@ Quit.addEventListener("click", function () {
       boardWithDivs[i][a].children[1].className = "hidden"
       GameResult.classList.remove("flex")
       GameResult.classList.add("hidden")
-
-
     }
   }
   startmenu.classList.remove("hidden")
@@ -223,7 +222,6 @@ Quit.addEventListener("click", function () {
   ModeDifficult.classList.add("hover:bg-SemiDarkNavy")
   document.getElementById("DifficultText").classList.remove("text-DarkNavy")
   document.getElementById("DifficultText").classList.add("text-Silver")
-
 
   xicon.classList.remove("bg-Silver")
   xicon.classList.add("hover:bg-SemiDarkNavy")
@@ -356,9 +354,6 @@ const play = () => {
     }, 400)
   }
 }
-
-
-
 // find which move player made
 const makeMove = (row, col) => {
   if (board[row][col] !== 0) {
@@ -752,10 +747,10 @@ Allsquare.addEventListener('click', function (event) {
             }
             number++
             boardWithDivs[ii][jj].children[1].className = "flex"
-            Xturn.classList.add("hidden")
-            Xturn.classList.remove("flex")
-            Oturn.classList.add("flex")
-            Oturn.classList.remove("hidden")
+            Xturn.classList.remove("hidden")
+            Xturn.classList.add("flex")
+            Oturn.classList.remove("flex")
+            Oturn.classList.add("hidden")
             roww = ii;
             coll = jj;
             NumOfXmoves++
