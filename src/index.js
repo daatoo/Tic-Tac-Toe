@@ -5,8 +5,8 @@ let Btn1 = document.getElementById("Btn1")
 let Btn2 = document.getElementById("Btn2")
 let startmenu = document.getElementById("startmenu")
 let gamediv = document.getElementById("gamediv")
-let WhoAreYou = document.getElementById("WhichAreYou")
-let WhichIsPc = document.getElementById("WhichIsPc")
+let WhoIsX = document.getElementById("WhichAreYou")
+let WhoIsO = document.getElementById("WhichIsPc")
 let NextRound = document.getElementById("NextRound")
 let Quit = document.getElementById("Quit")
 let Xwins = document.getElementById("Xwins")
@@ -29,6 +29,7 @@ let ModeDifficult = document.getElementById("ModeDifficult")
 let currentMode
 let UltimateMode
 let ModeForgamediv = document.getElementById("ModeForgamediv")
+let TwoPlayerMode = false
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
@@ -168,6 +169,7 @@ NextRound.addEventListener("click", function () {
   NumOfOmoves = 0
   NumOfXmoves = 0
   number = 0
+  currentPlayer = "X"
   Xturn.classList.add("flex")
   Xturn.classList.remove("hidden")
   Oturn.classList.add("hidden")
@@ -185,6 +187,7 @@ Quit.addEventListener("click", function () {
     [0, 0, 0],
     [0, 0, 0]
   ]
+  TwoPlayerMode = false
   NumOfOmoves = 0
   NumOfXmoves = 0
   number = 0
@@ -611,36 +614,49 @@ Btn1.addEventListener("click", function () {
     startmenu.classList.remove("flex")
     gamediv.classList.remove("hidden")
     gamediv.classList.add("flex")
-    WhoAreYou.innerText = "X (YOU)"
-    WhichIsPc.innerText = "O (CPU)"
+    WhoIsX.innerText = "X (YOU)"
+    WhoIsO.innerText = "O (CPU)"
     Xturn.classList.remove("hidden")
     Xturn.classList.add("flex")
-    if(currentMode == "Normal"){
+    if (currentMode == "Normal") {
       ModeForgamediv.innerText = "Mode: Normal"
-    }else if(currentMode == "Difficult"){
+    } else if (currentMode == "Difficult") {
       ModeForgamediv.innerText = "Mode: Difficult"
     }
 
 
 
   } else if (currentchoice == "O" && (currentMode == "Difficult" || currentMode == "Normal")) {
-    WhichIsPc.innerHTML = "O (YOU)"
-    WhoAreYou.innerHTML = "X (CPU)"
+    WhoIsO.innerHTML = "O (YOU)"
+    WhoIsX.innerHTML = "X (CPU)"
     startmenu.classList.add("hidden")
     startmenu.classList.remove("flex")
     gamediv.classList.remove("hidden")
     gamediv.classList.add("flex")
     Xturn.classList.remove("hidden")
     Xturn.classList.add("flex")
-    if(currentMode == "Normal"){
+    if (currentMode == "Normal") {
       ModeForgamediv.innerText = "Mode: Normal"
-    }else if(currentMode == "Difficult"){
+    } else if (currentMode == "Difficult") {
       ModeForgamediv.innerText = "Mode: Difficult"
     }
     play()
 
   }
 
+})
+Btn2.addEventListener("click", function () {
+  TwoPlayerMode = true
+  currentMode = ""
+  currentchoice = ""
+  startmenu.classList.add("hidden")
+  startmenu.classList.remove("flex")
+  gamediv.classList.remove("hidden")
+  gamediv.classList.add("flex")
+  WhoIsX.innerText = "X"
+  WhoIsO.innerText = "O"
+  Xturn.classList.remove("hidden")
+  Xturn.classList.add("flex")
 })
 // Check which was clicked
 Allsquare.addEventListener('click', function (event) {
@@ -649,7 +665,7 @@ Allsquare.addEventListener('click', function (event) {
     // Get the row and column of the clicked square
     for (let ii = 0; ii < 3; ii++) {
       for (let jj = 0; jj < 3; jj++) {
-        if (currentchoice == "X") {
+        if (currentchoice == "X" && TwoPlayerMode == false) {
           if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves == NumOfXmoves) {
             if (number == 0) {
               FirstMove[0] = ii
@@ -667,7 +683,7 @@ Allsquare.addEventListener('click', function (event) {
             play()
 
           }
-        } else if (currentchoice == "O") {
+        } else if (currentchoice == "O" && TwoPlayerMode == false) {
           if (boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0 && NumOfOmoves - 1 == NumOfXmoves) {
             if (number == 0) {
               FirstMove[0] = ii
@@ -684,6 +700,81 @@ Allsquare.addEventListener('click', function (event) {
             NumOfXmoves++
             play()
 
+          }
+        } else if (TwoPlayerMode == true && boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
+          if (currentPlayer == "X") {
+
+            if (number == 0) {
+              FirstMove[0] = ii
+              FirstMove[1] = jj
+            }
+            number++
+            boardWithDivs[ii][jj].children[0].className = "flex"
+            Xturn.classList.add("hidden")
+            Xturn.classList.remove("flex")
+            Oturn.classList.add("flex")
+            Oturn.classList.remove("hidden")
+            roww = ii;
+            coll = jj;
+            NumOfXmoves++
+            makeMove(roww, coll);
+            console.log(board)
+            if (checkWin()) {
+              setTimeout(() => {
+                GameResult.classList.remove("hidden")
+                GameResult.classList.add("flex")
+                ResultX.className = "flex"
+                ResultO.className = "hidden"
+                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+                TakesRound.innerText = "TAKES THE ROUND"
+                GameResult.children[0].classList.remove("hidden")
+                GameResult.children[0].innerText = "YOU WON!"
+                gamediv.classList.add("pointer-events-none")
+                Xscore.innerText++
+              }, 400);
+            } else if (!board[0].includes(0) && !board[1].includes(0) && !board[2].includes(0)) {
+              setTimeout(() => {
+                GameResult.classList.remove("hidden")
+                GameResult.classList.add("flex")
+                ResultX.className = "hidden"
+                ResultO.className = "hidden"
+                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+                TakesRound.innerText = "ROUND TIED"
+                gamediv.classList.add("pointer-events-none")
+                GameResult.children[0].classList.add("hidden")
+                TieScore.innerText++
+              }, 400);
+            }
+          } else if (currentPlayer == "O") {
+            if (number == 0) {
+              FirstMove[0] = ii
+              FirstMove[1] = jj
+            }
+            number++
+            boardWithDivs[ii][jj].children[1].className = "flex"
+            Xturn.classList.add("hidden")
+            Xturn.classList.remove("flex")
+            Oturn.classList.add("flex")
+            Oturn.classList.remove("hidden")
+            roww = ii;
+            coll = jj;
+            NumOfXmoves++
+            makeMove(roww, coll);
+            console.log(board)
+            if (checkWin()) {
+              setTimeout(() => {
+                GameResult.classList.remove("hidden")
+                GameResult.classList.add("flex")
+                ResultX.className = "hidden"
+                ResultO.className = "flex"
+                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+                TakesRound.innerText = "TAKES THE ROUND"
+                GameResult.children[0].classList.remove("hidden")
+                GameResult.children[0].innerText = "YOU WON!"
+                gamediv.classList.add("pointer-events-none")
+                Oscore.innerText++
+              }, 400);
+            }
           }
         }
       }
