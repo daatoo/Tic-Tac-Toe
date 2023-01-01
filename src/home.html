@@ -69,7 +69,8 @@
     </div>
     <div id="gamediv"
         class="hidden flex-col gap-10 justify-center items-center w-[460px] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
-        <h1 id="ModeForgamediv" class="font-bold text-xl leading-6 font-Outfit tracking-[1px] uppercase text-Silver"></h1>
+        <h1 id="ModeForgamediv" class="font-bold text-xl leading-6 font-Outfit tracking-[1px] uppercase text-Silver">
+        </h1>
         <div class="flex justify-between items-center w-full">
             <img src="../src/assets/logo.svg" class="h-[36.6px]" alt="" />
             <div
@@ -85,7 +86,7 @@
                     TURN
                 </p>
             </div>
-            <div class="RefreshBtn">
+            <div class="RefreshBtn" id="RefreshBtn">
                 <img src="../src/assets/icon-restart.svg" alt="" />
             </div>
         </div>
@@ -218,17 +219,36 @@
             </h2>
         </div>
         <div class="flex justify-center items-center gap-4 mt-2">
-            <div
+            <div id="Quit"
                 class="w-[76px] h-[52px] rounded-[10px] bg-Silver shadow-secondary flex justify-center items-center cursor-pointer">
-                <p id="Quit" class="font-Outfit font-bold text-base leading-5 tracking-[1px] uppercase text-DarkNavy">
+                <p  class="font-Outfit font-bold text-base leading-5 tracking-[1px] uppercase text-DarkNavy">
                     QUIT
                 </p>
             </div>
-            <div
+            <div id="NextRound"
                 class="w-[146px] h-[52px] rounded-[10px] bg-LightYellow shadow-secondary flex justify-center items-center cursor-pointer">
                 <p class="font-Outfit font-bold text-base leading-5 text-center tracking-[1px] text-DarkNavy"
-                    id="NextRound">
+                    >
                     NEXT ROUND
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="RestartGame"
+        class="absolute top-[50%] -translate-y-[50%] bg-SemiDarkNavy w-full h-[266px] hidden gap-[15px] flex-col justify-center items-center">
+        <h1 class="font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver">RESTART GAME?</h1>
+        <div class="flex justify-center items-center gap-4 mt-2">
+            <div id="NoRestart"
+                class="w-[140px] h-[52px] rounded-[10px] bg-Silver shadow-secondary flex justify-center items-center cursor-pointer">
+                <p class="font-Outfit font-bold text-base leading-5 tracking-[1px] uppercase text-DarkNavy">
+                    NO, CANCEL
+                </p>
+            </div>
+            <div id="Restart"
+                class="w-[140px] h-[52px] rounded-[10px] bg-LightYellow shadow-secondary flex justify-center items-center cursor-pointer">
+                <p class="font-Outfit font-bold text-base leading-5 text-center tracking-[1px] text-DarkNavy"
+                    id="NextRound">
+                    YES, RESTART
                 </p>
             </div>
         </div>

@@ -30,6 +30,9 @@ let currentMode
 let UltimateMode
 let ModeForgamediv = document.getElementById("ModeForgamediv")
 let TwoPlayerMode = false
+let RefreshBtn = document.getElementById("RefreshBtn")
+let Restart = document.getElementById("Restart")
+let NoRestart = document.getElementById("NoRestart")
 let board = [[0, 0, 0],
 [0, 0, 0],
 [0, 0, 0]
@@ -236,6 +239,38 @@ Quit.addEventListener("click", function () {
   oicon.children[0].classList.remove("bg-DarkNavy")
   oicon.children[0].children[0].classList.add("bg-DarkNavy")
   oicon.children[0].children[0].classList.remove("bg-Silver")
+})
+RefreshBtn.addEventListener("click", function () {
+  RestartGame.classList.remove("hidden")
+  RestartGame.classList.add("flex")
+})
+Restart.addEventListener("click", function () {
+  Xscore.innerText = 0
+  Oscore.innerText = 0
+  TieScore.innerText = 0
+  board = [[0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0]
+  ];
+  TwoPlayerMode = false
+  currentPlayer = "X"
+  NumOfOmoves = 0
+  NumOfXmoves = 0
+  number = 0
+  for (i = 0; i < 3; i++) {
+    for (a = 0; a < 3; a++) {
+      boardWithDivs[i][a].children[0].className = "hidden"
+      boardWithDivs[i][a].children[1].className = "hidden"
+      GameResult.classList.remove("flex")
+      GameResult.classList.add("hidden")
+    }
+  }
+  RestartGame.classList.add("hidden")
+  RestartGame.classList.remove("flex")
+})
+NoRestart.addEventListener("click", function () {
+  RestartGame.classList.add("hidden")
+  RestartGame.classList.remove("flex")
 })
 // code for playing logic
 const play = () => {
