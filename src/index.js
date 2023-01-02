@@ -159,8 +159,11 @@ const getNextPlayer = (currentPlayer) => {
 NextRound.addEventListener("click", function () {
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
-      boardWithDivs[i][a].children[0].className = "hidden"
-      boardWithDivs[i][a].children[1].className = "hidden"
+
+      boardWithDivs[i][a].children[0].classList.remove("flex")
+      boardWithDivs[i][a].children[0].classList.add("hidden") 
+      boardWithDivs[i][a].children[1].classList.remove("flex")
+      boardWithDivs[i][a].children[01].classList.add("hidden")  
       GameResult.classList.remove("flex")
       GameResult.classList.add("hidden")
     }
@@ -205,8 +208,10 @@ Quit.addEventListener("click", function () {
   gamediv.classList.remove("pointer-events-none")
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
-      boardWithDivs[i][a].children[0].className = "hidden"
-      boardWithDivs[i][a].children[1].className = "hidden"
+      boardWithDivs[i][a].children[0].classList.remove("flex")
+      boardWithDivs[i][a].children[0].classList.add("hidden") 
+      boardWithDivs[i][a].children[1].classList.remove("flex")
+      boardWithDivs[i][a].children[01].classList.add("hidden")  
       GameResult.classList.remove("flex")
       GameResult.classList.add("hidden")
     }
@@ -256,7 +261,6 @@ Restart.addEventListener("click", function () {
   currentPlayer = "X"
   NumOfOmoves = 0
   NumOfXmoves = 0
-  number = 0
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
       boardWithDivs[i][a].children[0].className = "hidden"
@@ -267,6 +271,13 @@ Restart.addEventListener("click", function () {
   }
   RestartGame.classList.add("hidden")
   RestartGame.classList.remove("flex")
+  if (currentchoice == "O") {
+    play()
+  }
+  Xturn.classList.add("flex")
+  Xturn.classList.remove("hidden")
+  Oturn.classList.add("hidden")
+  Oturn.classList.remove("flex")
 })
 NoRestart.addEventListener("click", function () {
   RestartGame.classList.add("hidden")
@@ -284,9 +295,11 @@ const play = () => {
       setTimeout(() => {
         GameResult.classList.remove("hidden")
         GameResult.classList.add("flex")
-        ResultX.className = "flex"
-        ResultO.className = "hidden"
-        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+        ResultX.classList.add("flex")
+        ResultX.classList.remove("hidden")
+        ResultO.classList.add("hidden")
+        ResultO.classList.remove("flex")
+        TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
         TakesRound.innerText = "TAKES THE ROUND"
         GameResult.children[0].classList.remove("hidden")
         GameResult.children[0].innerText = "YOU WON!"
@@ -299,7 +312,8 @@ const play = () => {
       let move = getBestMove();
       makeMove(move.row, move.col);
       setTimeout(() => {
-        boardWithDivs[move.row][move.col].children[1].className = "flex"
+        boardWithDivs[move.row][move.col].children[1].classList.add("flex")
+        boardWithDivs[move.row][move.col].children[1].classList.remove("hidden")
         NumOfOmoves++
         Xturn.classList.add("flex")
         Xturn.classList.remove("hidden")
@@ -311,9 +325,11 @@ const play = () => {
         setTimeout(() => {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
-          ResultX.className = "hidden"
-          ResultO.className = "flex"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+          ResultX.classList.remove("flex")
+          ResultX.classList.add("hidden")
+          ResultO.classList.remove("hidden")
+          ResultO.classList.add("flex")
+          TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
           TakesRound.innerText = "TAKES THE ROUND"
           GameResult.children[0].classList.remove("hidden")
           GameResult.children[0].innerText = "OH NO, YOU LOST…"
@@ -325,9 +341,11 @@ const play = () => {
       setTimeout(() => {
         GameResult.classList.remove("hidden")
         GameResult.classList.add("flex")
-        ResultX.className = "hidden"
-        ResultO.className = "hidden"
-        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+        ResultX.classList.remove("flex")
+        ResultX.classList.add("hidden")
+        ResultO.classList.add("hidden")
+        ResultO.classList.remove("flex")
+        TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-Silver"
         TakesRound.innerText = "ROUND TIED"
         gamediv.classList.add("pointer-events-none")
         GameResult.children[0].classList.add("hidden")
@@ -345,9 +363,11 @@ const play = () => {
       if (checkWin()) {
         GameResult.classList.remove("hidden")
         GameResult.classList.add("flex")
-        ResultX.className = "hidden"
-        ResultO.className = "flex"
-        TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+        ResultX.classList.remove("flex")
+        ResultX.classList.add("hidden")
+        ResultO.classList.remove("hidden")
+        ResultO.classList.add("flex")
+        TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
         TakesRound.innerText = "TAKES THE ROUND"
         GameResult.children[0].classList.remove("hidden")
         GameResult.children[0].innerText = "OH NO, YOU LOST…"
@@ -357,7 +377,8 @@ const play = () => {
         // Computer's turn
         let move = getBestMove();
         makeMove(move.row, move.col);
-        boardWithDivs[move.row][move.col].children[0].className = "flex"
+        boardWithDivs[move.row][move.col].children[0].classList.add("flex")
+        boardWithDivs[move.row][move.col].children[0].classList.remove("hidden")        
         NumOfOmoves++
         Xturn.classList.remove("flex")
         Xturn.classList.add("hidden")
@@ -366,9 +387,11 @@ const play = () => {
         if (checkWin()) {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
-          ResultX.className = "flex"
-          ResultO.className = "hidden"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+          ResultX.classList.add("flex")
+          ResultX.classList.remove("hidden")
+          ResultO.classList.add("hidden")
+          ResultO.classList.remove("flex")
+          TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
           TakesRound.innerText = "TAKES THE ROUND"
           GameResult.children[0].classList.remove("hidden")
           GameResult.children[0].innerText = "YOU WON!"
@@ -377,9 +400,12 @@ const play = () => {
         } else if (!board[0].includes(0) && !board[1].includes(0) && !board[2].includes(0)) {
           GameResult.classList.remove("hidden")
           GameResult.classList.add("flex")
-          ResultX.className = "hidden"
-          ResultO.className = "hidden"
-          TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+
+          ResultX.classList.remove("flex")
+          ResultX.classList.add("hidden")
+          ResultO.classList.add("hidden")
+          ResultO.classList.remove("flex")
+          TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-Silver"
           TakesRound.innerText = "ROUND TIED"
           gamediv.classList.add("pointer-events-none")
           GameResult.children[0].classList.add("hidden")
@@ -702,7 +728,8 @@ Allsquare.addEventListener('click', function (event) {
               FirstMove[1] = jj
             }
             number++
-            boardWithDivs[ii][jj].children[0].className = "flex"
+            boardWithDivs[ii][jj].children[0].classList.add("flex")
+            boardWithDivs[ii][jj].children[0].classList.remove("hidden")
             Xturn.classList.add("hidden")
             Xturn.classList.remove("flex")
             Oturn.classList.add("flex")
@@ -720,7 +747,8 @@ Allsquare.addEventListener('click', function (event) {
               FirstMove[1] = jj
             }
             number++
-            boardWithDivs[ii][jj].children[1].className = "flex"
+            boardWithDivs[ii][jj].children[1].classList.add("flex")
+            boardWithDivs[ii][jj].children[1].classList.remove("hidden")            
             Xturn.classList.remove("hidden")
             Xturn.classList.add("flex")
             Oturn.classList.remove("flex")
@@ -733,13 +761,8 @@ Allsquare.addEventListener('click', function (event) {
           }
         } else if (TwoPlayerMode == true && boardWithDivs[ii][jj].id === clickedElement.id && board[ii][jj] == 0) {
           if (currentPlayer == "X") {
-
-            if (number == 0) {
-              FirstMove[0] = ii
-              FirstMove[1] = jj
-            }
-            number++
-            boardWithDivs[ii][jj].children[0].className = "flex"
+            boardWithDivs[ii][jj].children[0].classList.add("flex")
+            boardWithDivs[ii][jj].children[0].classList.remove("hidden")       
             Xturn.classList.add("hidden")
             Xturn.classList.remove("flex")
             Oturn.classList.add("flex")
@@ -753,8 +776,10 @@ Allsquare.addEventListener('click', function (event) {
               setTimeout(() => {
                 GameResult.classList.remove("hidden")
                 GameResult.classList.add("flex")
-                ResultX.className = "flex"
-                ResultO.className = "hidden"
+                ResultX.classList.add("flex")
+                ResultX.classList.remove("hidden")
+                ResultO.classList.add("hidden")
+                ResultO.classList.remove("flex")
                 TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
                 TakesRound.innerText = "TAKES THE ROUND"
                 GameResult.children[0].classList.remove("hidden")
@@ -766,8 +791,10 @@ Allsquare.addEventListener('click', function (event) {
               setTimeout(() => {
                 GameResult.classList.remove("hidden")
                 GameResult.classList.add("flex")
-                ResultX.className = "hidden"
-                ResultO.className = "hidden"
+                ResultX.classList.remove("flex")
+                ResultX.classList.add("hidden")
+                ResultO.classList.add("hidden")
+                ResultO.classList.remove("flex")
                 TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
                 TakesRound.innerText = "ROUND TIED"
                 gamediv.classList.add("pointer-events-none")
@@ -776,12 +803,8 @@ Allsquare.addEventListener('click', function (event) {
               }, 400);
             }
           } else if (currentPlayer == "O") {
-            if (number == 0) {
-              FirstMove[0] = ii
-              FirstMove[1] = jj
-            }
-            number++
-            boardWithDivs[ii][jj].children[1].className = "flex"
+            boardWithDivs[ii][jj].children[1].classList.add("flex")
+            boardWithDivs[ii][jj].children[1].classList.remove("hidden")              
             Xturn.classList.remove("hidden")
             Xturn.classList.add("flex")
             Oturn.classList.remove("flex")
@@ -795,8 +818,11 @@ Allsquare.addEventListener('click', function (event) {
               setTimeout(() => {
                 GameResult.classList.remove("hidden")
                 GameResult.classList.add("flex")
-                ResultX.className = "hidden"
-                ResultO.className = "flex"
+
+                ResultX.classList.remove("flex")
+                ResultX.classList.add("hidden")
+                ResultO.classList.remove("hidden")
+                ResultO.classList.add("flex")
                 TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
                 TakesRound.innerText = "TAKES THE ROUND"
                 GameResult.children[0].classList.remove("hidden")
