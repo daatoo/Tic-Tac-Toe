@@ -263,8 +263,10 @@ Restart.addEventListener("click", function () {
   NumOfXmoves = 0
   for (i = 0; i < 3; i++) {
     for (a = 0; a < 3; a++) {
-      boardWithDivs[i][a].children[0].className = "hidden"
-      boardWithDivs[i][a].children[1].className = "hidden"
+      boardWithDivs[i][a].children[0].classList.remove("flex")
+      boardWithDivs[i][a].children[0].classList.add("hidden") 
+      boardWithDivs[i][a].children[1].classList.remove("flex")
+      boardWithDivs[i][a].children[01].classList.add("hidden")  
       GameResult.classList.remove("flex")
       GameResult.classList.add("hidden")
     }
