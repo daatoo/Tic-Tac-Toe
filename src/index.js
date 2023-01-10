@@ -27,7 +27,6 @@ let NumOfXmoves = 0
 let ModeNormal = document.getElementById("ModeNormal")
 let ModeDifficult = document.getElementById("ModeDifficult")
 let currentMode
-let UltimateMode
 let ModeForgamediv = document.getElementById("ModeForgamediv")
 let TwoPlayerMode = false
 let RefreshBtn = document.getElementById("RefreshBtn")
@@ -257,7 +256,6 @@ Restart.addEventListener("click", function () {
   [0, 0, 0],
   [0, 0, 0]
   ];
-  TwoPlayerMode = false
   currentPlayer = "X"
   NumOfOmoves = 0
   NumOfXmoves = 0
@@ -782,7 +780,7 @@ Allsquare.addEventListener('click', function (event) {
                 ResultX.classList.remove("hidden")
                 ResultO.classList.add("hidden")
                 ResultO.classList.remove("flex")
-                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
+                TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightBlue"
                 TakesRound.innerText = "TAKES THE ROUND"
                 GameResult.children[0].classList.remove("hidden")
                 GameResult.children[0].innerText = "YOU WON!"
@@ -797,7 +795,7 @@ Allsquare.addEventListener('click', function (event) {
                 ResultX.classList.add("hidden")
                 ResultO.classList.add("hidden")
                 ResultO.classList.remove("flex")
-                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-Silver"
+                TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-Silver"
                 TakesRound.innerText = "ROUND TIED"
                 gamediv.classList.add("pointer-events-none")
                 GameResult.children[0].classList.add("hidden")
@@ -825,7 +823,7 @@ Allsquare.addEventListener('click', function (event) {
                 ResultX.classList.add("hidden")
                 ResultO.classList.remove("hidden")
                 ResultO.classList.add("flex")
-                TakesRound.className = "font-Outfit font-bold text-[40px] leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
+                TakesRound.className = "font-Outfit font-bold text-2xl leading-[30px] md:text-[40px] md:leading-[50px] tracking-[2.5px] uppercase text-LightYellow"
                 TakesRound.innerText = "TAKES THE ROUND"
                 GameResult.children[0].classList.remove("hidden")
                 GameResult.children[0].innerText = "YOU WON!"
