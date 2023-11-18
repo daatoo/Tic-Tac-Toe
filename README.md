@@ -1,4 +1,5 @@
-Tic-Tac-Toe Game
+# __Tic-Tac-Toe Game__
+
 Welcome to the Tic-Tac-Toe game repository! This web-based game is built using HTML, CSS, and JavaScript, featuring a challenging AI opponent powered by the Minimax algorithm. The game offers two difficulty levels - normal and difficult, ensuring an enjoyable experience for players of all skill levels.
 
 Features
