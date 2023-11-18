@@ -4,18 +4,15 @@ Welcome to the Tic-Tac-Toe game repository! This web-based game is built using H
 
 ## Features
 
-### - Player Modes:
+- Player Modes:
+  - Play against the computer with adjustable difficulty levels.
+  - Challenge a friend in offline mode for a classic two-player experience.
 
-####       - Play against the computer with adjustable difficulty levels.
-####       - Challenge a friend in offline mode for a classic two-player experience.
+- Difficulty Levels:
+  - Normal: Ideal for casual players seeking a balanced challenge.
+  - Difficult: For seasoned players looking for a more strategic and challenging game.
 
-### - Difficulty Levels:
-
-####       - Normal: Ideal for casual players seeking a balanced challenge.
-####       - Difficult: For seasoned players looking for a more strategic and challenging game.
-
-### - Minimax Algorithm:
-
-####       - The computer player employs the Minimax algorithm to determine the best possible move, making the game both engaging and competitive.
+- Minimax Algorithm:
+  - The computer player employs the Minimax algorithm to determine the best possible move, making the game both engaging and competitive.
 
 [figma](https://www.figma.com/file/mfsFOVfgpgaJR3LPWRlP03/tic-tac-toe?node-id=0%3A1&t=ABXy9lb7Gnw6i6ij-0)
