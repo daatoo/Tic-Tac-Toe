@@ -4,7 +4,7 @@ Welcome to the Tic-Tac-Toe game repository! This web-based game is built using H
 
 ## Features
 
-### *Player Modes:
+### -Player Modes:
 
 Play against the computer with adjustable difficulty levels.
 Challenge a friend in offline mode for a classic two-player experience.
